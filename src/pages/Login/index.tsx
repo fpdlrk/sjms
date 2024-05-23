@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { css } from "styled-components";
 import logo from "../../assets/img/logo.svg";
-import { InputFieldIprops } from "../../styled/styledUseType";
+import { InputField } from "../../components/InputField";
 
 const Login = () => {
   return (
@@ -12,7 +12,7 @@ const Login = () => {
           <ImageBox src={logo}></ImageBox>
         </Logo>
         <FormGroup>
-          <InputField type={"text"}></InputField>
+          <InputField value={"111"} pt={10} type={"text"} size={"lager"} />
         </FormGroup>
       </LoginForm>
     </LoginLayout>
@@ -34,25 +34,3 @@ const Logo = styled.div``;
 const ImageBox = styled.img<{ src: string }>``;
 
 const FormGroup = styled.div``;
-
-const InputField = styled.input<InputFieldIprops>`
-  width: 100%;
-  height: ${(props) =>
-    props.size === "lager"
-      ? props.theme.inputSize.lager + "px"
-      : props.size === "middle"
-      ? props.theme.inputSize.middle
-      : props.size === "small"
-      ? props.theme.inputSize.small
-      : "32px"};
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  &:hover {
-  }
-  &:focus {
-    outline: none;
-    border-color: #333;
-  }
-  &:disabled {
-  }
-`;

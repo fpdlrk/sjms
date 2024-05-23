@@ -3,8 +3,3 @@ export interface FlexIprops {
   justify: string;
   align: string;
 }
-
-export interface InputFieldIprops {
-  type: "text" | "password" | "number";
-  size?: string;
-}
