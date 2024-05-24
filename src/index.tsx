@@ -4,13 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "styled-components";
-import { theme, mixin, size, inputSize } from "./styled/theme";
+import { theme, size, inputSize } from "./styled/theme";
 import GlobalStyled from "./styled/GlobalStyled";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={{ theme, mixin, size, inputSize }}>
+    <ThemeProvider theme={{ theme, size, inputSize }}>
       <GlobalStyled />
       <App />
     </ThemeProvider>

@@ -1,5 +1,3 @@
-import { FlexIprops } from "./styledUseType";
-
 export const size = {
   tablet: "640px",
   laptop: "1200px",
@@ -14,19 +12,10 @@ export const inputSize = {
 
 export const theme = {
   color: {
-    primary: "#6ABD8C",
-    secondary: "#CCDFB0",
-    darkGray: "#595959",
+    primary: "#0E1342",
+    secondary: "#046EEF",
+    darkGray: "#333333",
     lightGray: "#939292",
     superLightGray: "#F1F2F5",
   },
-};
-
-export const mixin = {
-  flex: (prop: FlexIprops) => `
-        display:flex;
-        flex-direction : ${prop?.direction || "row"};
-        justify-content : ${prop?.justify || "start"};
-        align-items : ${prop?.align || "start"}
-    `,
 };
