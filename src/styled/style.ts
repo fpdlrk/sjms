@@ -1,6 +1,7 @@
 import { css, styled } from "styled-components";
-import { BackgroundMixin, BorderMixin, ButtonMixinFn, FontWeightMixin, PaddingMarginMixin, RadiusMixin, WidthHeightMixin } from "./mixin";
-import { InputFieldIprops, CheckboxRadioIprops, CommonType, FormGroupIprops, ButtonIprops } from "./styledPropType";
+import { theme } from "./../styled/theme";
+import { EtcMixin, BorderMixin, ButtonMixinFn, FontWeightMixin, PaddingMarginMixin, RadiusMixin, WidthHeightMixin } from "./mixin";
+import { InputFieldIprops, CheckboxRadioIprops, CommonType, FormGroupIprops, ButtonIprops, ImageIprops } from "./styledPropType";
 import checkOutline from "../assets/img/Check_outline.svg";
 import check from "../assets/img/Check.svg";
 import radioOutline from "../assets/img/Radio_outline.svg";
@@ -10,7 +11,7 @@ const CommCss = css`
   ${WidthHeightMixin};
   ${PaddingMarginMixin};
   ${FontWeightMixin}
-  ${BackgroundMixin}
+  ${EtcMixin}
   ${RadiusMixin}
   ${BorderMixin}
 `;
@@ -23,7 +24,12 @@ export const FlexBox = styled.div<CommonType>`
   ${CommCss}
 `;
 
-export const InputField = styled.input<InputFieldIprops>`
+export const InputField = styled.input.attrs<InputFieldIprops>((props) => ({
+  type: props.type,
+  checked: props.checked,
+  value: props.value,
+  onChange: props.onChange,
+}))`
   height: ${(props) =>
     props.$size === "lager"
       ? props.theme.inputSize.lager
@@ -32,9 +38,8 @@ export const InputField = styled.input<InputFieldIprops>`
       : props.$size === "small"
       ? props.theme.inputSize.small
       : "32px"};
+
   ${CommCss};
-  border: 1px solid #eee;
-  border-radius: 4px;
   &:hover {
   }
   &:focus {
@@ -43,6 +48,8 @@ export const InputField = styled.input<InputFieldIprops>`
   }
   &:disabled {
   }
+  border: 1px solid #eee;
+  border-radius: 4px;
 `;
 
 export const ChkeckBox = styled.input.attrs<CheckboxRadioIprops>((props) => ({
@@ -74,13 +81,37 @@ export const Radio = styled(ChkeckBox).attrs((props) => {
   }
 `;
 
-export const LabelText = styled.label<CommonType>`
+export const LabelText = styled.label<CommonType & { $ess?: boolean }>`
+  margin-bottom: 5px;
+  color: ${theme.color.fcSecond};
+  &:after {
+    padding: 0 0 0 3px;
+    content: "*";
+    font-size: 14px;
+    font-weight: 700;
+    color: #ff2512;
+    display: ${(props) => !props.$ess && "none"};
+  }
   ${CommCss}
 `;
 
-export const ImageBox = styled.img<{ src: string }>``;
+export const ImageBox = styled.img<ImageIprops & { src: string }>``;
 
-export const FormItem = styled.div<CommonType>`
+export const BasicTagItem = styled.div<CommonType>`
+  position: relative;
+  ${CommCss};
+`;
+
+export const TextItem = styled.div<CommonType>`
+  ${CommCss};
+`;
+
+export const ReactIconItem = styled.div<CommonType>`
+  line-height: 0;
+  ${CommCss};
+`;
+
+export const FormItem = styled(BasicTagItem)`
   position: relative;
   ${CommCss};
 `;
@@ -106,30 +137,32 @@ export const Button = styled.button<ButtonIprops>`
       : props.$size === "small"
       ? props.theme.inputSize.small
       : props.theme.inputSize.middle};
+  padding: 0 15px;
 
   ${(props) => {
     if (props.$second) {
-      return ButtonMixinFn.button({ background: props.theme.theme.color.secondary, $color: "#fff" });
+      return ButtonMixinFn.button({ $background: props.theme.theme.color.secondary, $color: "#fff" });
     }
   }}
 
   ${(props) => {
     if (props.$primary) {
-      return ButtonMixinFn.button({ background: props.theme.theme.color.primary, $color: "#fff" });
+      return ButtonMixinFn.button({ $background: props.theme.theme.color.primary, $color: "#fff" });
     }
   }}
 
       ${(props) => {
-    if (props.background) {
-      return ButtonMixinFn.button({ background: props.background });
+    if (props.$background) {
+      return ButtonMixinFn.button({ $background: props.$background });
     }
   }}
   border-width:1px;
   border-radius: 6px;
-  font-weight: 700;
-  transition: background 0.3s;
+  border-style: solid;
+  border-color: #000;
+  font-weight: 500;
+  transition: all 0.3s;
   cursor: pointer;
-
   ${CommCss};
 `;
 
@@ -138,5 +171,54 @@ export const TextButton = styled.button<ButtonIprops>`
   border: none;
   cursor: pointer;
   background: none;
+  ${CommCss}
+`;
+
+export const IconButton = styled(TextButton)<ButtonIprops>`
+  font-size: 20px;
+  ${CommCss}
+`;
+
+export const PopupAndAlertOuter = styled.div<CommonType>`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.3);
+`;
+
+export const PopupAndAlertWrap = styled.div<CommonType>`
+  width: 500px;
+  /* height: 500px; */
+
+  border-radius: 10px;
+  background-color: #fff;
+  position: relative;
+  ${IconButton} {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+  overflow: hidden;
+`;
+
+export const PopupAndAlertTitle = styled.div<CommonType>`
+  padding: 30px 30px 10px 30px;
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+export const PopupAndAlertBody = styled.div<CommonType>`
+  padding: 5px 30px 30px 30px;
+`;
+
+export const PopupAndAlertBottom = styled.div<CommonType>`
+  padding: 0px 15px 15px 15px;
+  /* background-color: ${theme.color.superLightGray}; */
   ${CommCss}
 `;

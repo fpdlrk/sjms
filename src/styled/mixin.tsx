@@ -12,11 +12,12 @@ import {
 
 export const WidthHeightMixin = css<WidthHeightIprops>`
   width: ${(props) => (props.width && typeof props.width === "string" ? props.width : props.width ? props.width + "px" : "")};
-  height: ${(props) => (props.height && typeof props.height === "string" ? props.width : props.height ? props.height + "px" : "")};
+  height: ${(props) => (props.height && typeof props.height === "string" ? props.height : props.height ? props.height + "px" : "")};
 `;
 
-export const BackgroundMixin = css<EtcIprops>`
-  background: ${(props) => props.background && props.background};
+export const EtcMixin = css<EtcIprops>`
+  background: ${(props) => props.$background && props.$background};
+  display: ${(props) => props.$display && props.$display};
 `;
 
 export const PositionMixin = css<PositionIprops>`
@@ -76,22 +77,22 @@ const hexColorToRGB = (hexColor: string) => {
 
 export const ButtonMixinFn = {
   button: (props: ButtonIprops) => {
-    const color = hexColorToRGB(props.background || "#000");
+    const color = hexColorToRGB(props.$background || "#000");
     const strColor = color.toString();
     // console.log(">>>>>>", color, color.toString());
     return `
     color: ${props.$color && props.$color};
-    background-color: ${props.background && "rgba(" + strColor + ")"};
+    background-color: ${props.$background && "rgba(" + strColor + ")"};
     border-color:rgba(${strColor});
     &:hover {
-      background-color: ${props.background && "rgba(" + strColor + ", .85)"};
+      background-color: ${props.$background && "rgba(" + strColor + ", .85)"};
     }
   `;
   },
 };
 
 export const ButtonMixin = css<ButtonIprops>`
-  background-color: ${(props) => props.background && props.background};
+  background-color: ${(props) => props.$background && props.$background};
 `;
 
 export const RadiusMixin = css<RadiusIprops>`
@@ -121,7 +122,11 @@ export const BorderMixin = css<EtcIprops>`
     }
 
     if (props.$ba) {
-      return `border-width: ${props.$bl}px;`;
+      return `border-width: ${props.$ba}px;`;
+    }
+
+    if (props.$bw) {
+      return `border-width: ${props.$bw}px;`;
     }
   }}
 

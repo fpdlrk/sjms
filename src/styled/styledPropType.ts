@@ -9,16 +9,19 @@ export type WidthHeightIprops = {
   height?: number | string;
 };
 
+export type ImageIprops = WidthHeightIprops & PaddingMarginMixinIprops & PositionIprops & {};
+
 export type EtcIprops = {
-  background?: string;
-  $bc?: string;
-  $bw?: number;
-  $style?: string;
-  $bt?: number;
-  $br?: number;
-  $bb?: number;
-  $bl?: number;
-  $ba?: number;
+  $background?: string; // 배경색
+  $bc?: string; // border 색상
+  $bw?: number; // border 선 두께
+  $style?: string; // border 선 스타일 solid, dashed 등등
+  $bt?: number; // border-top 선 두께
+  $br?: number; // border-right 선 두께
+  $bb?: number; // border-bottom 선 두께
+  $bl?: number; // border-left 선 두께
+  $ba?: number; // border 선 두께
+  $display?: string;
 };
 
 export type ButtonIprops = CommonType & {
@@ -73,14 +76,15 @@ export type PaddingMarginMixinIprops = {
 
 export type InputFieldIprops = InputType & {
   type: "text" | "password" | "number";
-  value?: string | number | undefined | null;
-  $size?: "small" | "middle" | "lager" | undefined;
+  value?: string | number | undefined;
+  $size?: "small" | "middle" | "lager";
   placeholder?: string;
+  // onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export type CheckboxRadioIprops = InputType & {
-  value?: string | number | undefined | null;
-  $sized?: "small" | "middle" | "lager" | undefined;
+  // value?: string | number;
+  $sized?: "small" | "middle" | "lager";
 };
 
 export type FormGroupIprops = CommonType & {
@@ -89,5 +93,5 @@ export type FormGroupIprops = CommonType & {
   $gapB?: number;
   $gapL?: number;
   $gapA?: number;
-  $display?: "felx";
+  // $display?: "felx";
 };
