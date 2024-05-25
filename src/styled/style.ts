@@ -106,7 +106,7 @@ export const TextItem = styled.div<CommonType>`
   ${CommCss};
 `;
 
-export const ReactIconItem = styled.div<CommonType>`
+export const Icon = styled.div<CommonType>`
   line-height: 0;
   ${CommCss};
 `;

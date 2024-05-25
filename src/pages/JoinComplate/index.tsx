@@ -15,9 +15,9 @@ const JoinComplate = () => {
     <ST.FlexBox width={"100%"} height="100vh" $justify="center" $align="center">
       <ST.FlexBox $direction="column" $align="center">
         {/* <ST.ImageBox src={profile} width={100} /> */}
-        <ST.ReactIconItem $fs={100}>
+        <ST.Icon $fs={100}>
           <TbUserCircle />
-        </ST.ReactIconItem>
+        </ST.Icon>
         <ST.TextItem $fs={32}>회원가입이 완료 되었습니다.</ST.TextItem>
         <ST.TextItem $fs={12} $fc={theme.color.fcThird} $mt={10}>
           SJMS의 서비스를 이용하실 수 있습니다.
