@@ -12,32 +12,57 @@ const Join = () => {
   const [inputName, inputNameHandler] = useInput("");
   const [inputPw, inputPwHandler] = useInput("");
   const [inputPwRe, inputPwAgainHandler] = useInput("");
-  const { setIsShow }: any = useMessageAlertStore();
-  const [required] = useValidate();
+  const { setData } = useMessageAlertStore();
+  const { isEmpty } = useValidate();
 
   /**
    * callFunc 함수
    * 기본validate 외에 따로 callback을 정의한다
    * @returns true/false
    */
-  const callFunc = () => {
+  const callbcakFunc = () => {
     console.log("callFunccallFunccallFunc");
     return true;
   };
 
   const joinHandler = () => {
-    // validateHandler("alert");
+    if (isEmpty(inputEmail)) {
+      setData({
+        isShow: true,
+        msg: "이메일을 입력하세요",
+        okBtn: true, // 확인 버튼 노출/미노출
+        callback: callbcakFunc, // 확인 버튼 클릭 시 실행 함수등록
+      });
+      return;
+    }
+
+    if (isEmpty(inputName)) {
+      setData({
+        isShow: true,
+        msg: "이름을 입력하세요",
+        okBtn: false,
+      });
+      return;
+    }
+
+    if (isEmpty(inputPw)) {
+      setData({
+        isShow: true,
+        msg: "비밀번호를 입력하세요",
+        okBtn: false,
+      });
+      return;
+    }
+
+    if (isEmpty(inputPwRe)) {
+      setData({
+        isShow: true,
+        msg: "비밀번호를 한번 더 입력하세요",
+        okBtn: false,
+      });
+      return;
+    }
     navigate("../joinComplate");
-  };
-
-  const okCallback = () => {
-    console.log("확인버튼 클릭");
-    setIsShow(false);
-    // navigate("../joinComplate");
-  };
-
-  const joinConfirmHandler = () => {
-    // navigate("../joinComplate");
   };
 
   return (
@@ -120,10 +145,6 @@ const Join = () => {
 
           <ST.Button $mt={40} $size={"lager"} $primary={true} onClick={joinHandler}>
             회원가입
-          </ST.Button>
-
-          <ST.Button $mt={10} $size={"lager"} $primary={true} onClick={joinConfirmHandler}>
-            회원가입 (컨핌타입)
           </ST.Button>
         </ST.FormGroup>
       </ST.BasicTagItem>

@@ -6,20 +6,33 @@ import * as ST from "../../styled/style";
 import { Link, useNavigate } from "react-router-dom";
 import { theme } from "../../styled/theme";
 import useValidate from "../../hooks/useValidate";
+import { useMessageAlertStore } from "../../store/globalStore";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setData } = useMessageAlertStore();
   const [inputId, changeIdHandler] = useInput("");
   const [inputPw, changePwHandler] = useInput("");
-  const [required] = useValidate();
-
-  // const { validateHandler } = useValidate([
-  //   { value: inputId, checkType: "", msg: "아이디를 입력하세요" },
-  //   { value: inputPw, checkType: "", msg: "비밀번호를 입력하세요" },
-  // ]);
+  const { isEmpty } = useValidate();
 
   const loginHandler = () => {
-    // if (!validateHandler("alert")) return;
+    if (isEmpty(inputId)) {
+      setData({
+        type: "alert",
+        isShow: true,
+        msg: "아이디를 입력하세요",
+      });
+      return;
+    }
+
+    if (isEmpty(inputPw)) {
+      setData({
+        type: "alert",
+        isShow: true,
+        msg: "비밀번호를 입력하세요",
+      });
+      return;
+    }
     // 메인으로 이동
     navigate("/overview");
   };

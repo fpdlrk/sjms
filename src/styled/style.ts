@@ -244,6 +244,7 @@ export const PopupAndAlertTitle = styled.div<CommonType>`
 
 export const PopupAndAlertBody = styled.div<CommonType>`
   padding: 5px 30px 30px 30px;
+  white-space: pre;
 `;
 
 export const PopupAndAlertBottom = styled.div<CommonType>`

@@ -5,9 +5,9 @@ import { TbX } from "react-icons/tb";
 import { theme } from "./../../styled/theme";
 
 const MessageAlert = () => {
-  const { isShow, setIsShow, msg } = useMessageAlertStore();
+  const { msg, okBtn, callback, setReset } = useMessageAlertStore();
   const closeHandler = () => {
-    setIsShow(false);
+    setReset();
   };
   return (
     <ST.PopupAndAlertOuter>
@@ -16,6 +16,18 @@ const MessageAlert = () => {
         <ST.PopupAndAlertBody>
           <ST.TextItem $fc={theme.color.fcSecond}>{msg}</ST.TextItem>
         </ST.PopupAndAlertBody>
+        <ST.PopupAndAlertBottom>
+          <ST.FlexBox $justify="right">
+            <ST.Button width={"auto"} $background="#fff" $bc="#fff" $mr={5} $size={"middle"} onClick={closeHandler}>
+              닫기
+            </ST.Button>
+            {okBtn && (
+              <ST.Button width={"auto"} $size={"middle"} $primary={true} onClick={callback}>
+                확인
+              </ST.Button>
+            )}
+          </ST.FlexBox>
+        </ST.PopupAndAlertBottom>
         <ST.IconButton onClick={closeHandler}>
           <TbX />
         </ST.IconButton>

@@ -12,18 +12,22 @@ import { useMessageAlertStore } from "../../store/globalStore";
 const UserInfo = () => {
   const navigate = useNavigate();
   const { posLocation, objRemove, pos, randomId } = usePostionInfo();
-  const { setIsShow }: any = useMessageAlertStore();
-  const [required] = useValidate();
+  const { setData, callback, setIsShow } = useMessageAlertStore();
+  const { isEmpty } = useValidate();
 
   const okCallback = () => {
-    console.log("확인버튼 클릭");
     setIsShow(false);
     navigate("../login");
   };
 
   // 로그아웃 처리
   const procLogout = () => {
-    console.log("sdfsdfdf");
+    setData({
+      isShow: true,
+      msg: "로그아웃 하시겠습니까?",
+      okBtn: true, // 확인 버튼 노출/미노출
+      callback: okCallback,
+    });
   };
 
   // 정보수정 이동

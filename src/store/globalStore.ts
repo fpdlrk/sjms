@@ -1,22 +1,14 @@
 import { create } from "zustand";
 
+const messageAlertStoreReset = { isShow: false, msg: "", okBtn: false, cancleBtn: true };
+
 export const useMessageAlertStore = create((set: any) => ({
-  type: "alert",
   isShow: false,
   msg: "",
   okBtn: false,
+  cancleBtn: true,
+  callback: function () {},
   setIsShow: (status: boolean) => set({ isShow: status }),
-  setMsg: (msg: any) => set(() => ({ msg: msg })),
-  setType: (type: string) => set(() => ({ type: type })),
-  setOkHandler: (callback: any) => set(() => ({ confirmHandler: callback })),
-}));
-
-export const useComfirmStore = create((set: any) => ({
-  isShow: false,
-  msg: "",
-  confirmHandler: () => {},
-  setIsShow: (status: boolean) => set({ isShow: status }),
-  setMsg: (msg: any) => set(() => ({ msg: msg })),
-  setType: (type: string) => set(() => ({ type: type })),
-  setOkHandler: (callback: any) => set(() => ({ confirmHandler: callback })),
+  setData: (data: any) => set((state: any) => ({ ...state, ...data })),
+  setReset: () => set((state: any) => ({ ...state, ...messageAlertStoreReset })),
 }));

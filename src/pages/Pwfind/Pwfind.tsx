@@ -4,14 +4,34 @@ import { ReactComponent as PwIcon } from "../../assets/img/password-02.svg";
 import { useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import useValidate from "../../hooks/useValidate";
+import { useMessageAlertStore } from "../../store/globalStore";
 
 const Pwfind = () => {
   const navigate = useNavigate();
   const [inputEmail, inputEmailHandler] = useInput("");
   const [inputName, inputNameHandler] = useInput("");
-  const [required] = useValidate();
+  const { setData } = useMessageAlertStore();
+  const { isEmpty } = useValidate();
 
   const pwFindHandler = () => {
+    if (isEmpty(inputEmail)) {
+      setData({
+        isShow: true,
+        msg: "이메일을 입력하세요",
+        okBtn: false, // 확인 버튼 노출/미노출
+      });
+      return;
+    }
+
+    if (isEmpty(inputName)) {
+      setData({
+        isShow: true,
+        msg: "이름을 입력하세요",
+        okBtn: false, // 확인 버튼 노출/미노출
+      });
+      return;
+    }
+
     navigate("../pwFindComplate");
   };
 

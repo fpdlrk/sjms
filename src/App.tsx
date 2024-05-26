@@ -7,11 +7,10 @@ import { useMessageAlertStore } from "./store/globalStore";
 import MessageConfirm from "./components/MessageConfirm";
 
 function App() {
-  const { isShow, type } = useMessageAlertStore();
+  const { isShow } = useMessageAlertStore();
   return (
     <>
-      {isShow && type === "alert" && <MessageAlert />}
-      {isShow && type === "confirm" && <MessageConfirm />}
+      {isShow && <MessageAlert />}
       <Router />
     </>
   );

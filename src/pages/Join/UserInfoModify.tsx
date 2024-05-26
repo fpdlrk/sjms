@@ -18,36 +18,52 @@ const UserInfoModify = () => {
   const [inputPw, inputPwHandler] = useInput("");
   const [inputNewPassword, newPassword] = useInput("");
   const [passwordConfirm, newPasswordConfirm] = useInput("");
-  const { setIsShow, setType }: any = useMessageAlertStore();
-  const [required] = useValidate();
+  const { setData, callback, setReset } = useMessageAlertStore();
+  const { isEmpty } = useValidate();
 
-  /**
-   * callFunc 함수
-   * 기본validate 외에 따로 callback을 정의한다
-   * @returns true/false
-   */
-
-  // 페스워드 체크
-  const passwordCheckaProc = useCallback((data: any) => {
-    if (data.value.length < 4) {
-      return false;
-    }
-
-    setIsPassword(true);
-    return true;
-  }, []);
-
-  // 정보수정 완료 시 로그인 페이지로 보내기
-  const reLoginPage = () => {
-    // return true;
+  const modifyComplete = () => {
+    setReset();
+    navigate("../login");
   };
 
-  const modifyHandler = () => {
-    // navigate("../joinComplate");
+  const modifyCheckHandler = () => {
+    if (isEmpty(inputNewPassword)) {
+      setData({
+        isShow: true,
+        msg: "신규 비밀번호를 입력하세요",
+        okBtn: false, // 확인 버튼 노출/미노출
+      });
+      return;
+    }
+
+    if (isEmpty(passwordConfirm)) {
+      setData({
+        isShow: true,
+        msg: "신규 비밀번호를 다시 입력하세요",
+        okBtn: false, // 확인 버튼 노출/미노출
+      });
+      return;
+    }
+
+    setData({
+      isShow: true,
+      msg: "회원정보를 수정했습니다.\n다시 로그인 해주세요",
+      okBtn: true, // 확인 버튼 노출/미노출
+      cancleBtn: false,
+      callback: modifyComplete,
+    });
   };
 
   const passwordCheck = () => {
-    console.log("비밀번호버튼 클릭!!!!!!!!!!");
+    if (isEmpty(inputPw)) {
+      setData({
+        isShow: true,
+        msg: "현재 비밀번호를 입력하세요",
+        okBtn: false, // 확인 버튼 노출/미노출
+      });
+      return;
+    }
+    setIsPassword(true);
   };
 
   useEffect(() => {});
@@ -159,7 +175,7 @@ const UserInfoModify = () => {
             </>
           )}
 
-          <ST.Button $mt={40} $size={"lager"} $primary={true} disabled={!isPassword} onClick={modifyHandler}>
+          <ST.Button $mt={40} $size={"lager"} $primary={true} disabled={!isPassword} onClick={modifyCheckHandler}>
             정보수정
           </ST.Button>
         </ST.FormGroup>
