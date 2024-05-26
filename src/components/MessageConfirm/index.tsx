@@ -1,11 +1,11 @@
 import React from "react";
-import useMessageAlertStore from "../../store/globalStore";
+import { useMessageAlertStore } from "../../store/globalStore";
 import * as ST from "../../styled/style";
 import { TbX } from "react-icons/tb";
 import { theme } from "./../../styled/theme";
 
 const MessageConfirm = () => {
-  const { isShow, setIsShow, msg, confirmHandler } = useMessageAlertStore();
+  const { isShow, setIsShow, msg } = useMessageAlertStore();
   const closeHandler = () => {
     setIsShow(false);
   };
@@ -21,7 +21,7 @@ const MessageConfirm = () => {
             <ST.Button width={"auto"} $background="#fff" $bc="#fff" $mr={5} $size={"middle"} onClick={closeHandler}>
               닫기
             </ST.Button>
-            <ST.Button width={"auto"} $size={"middle"} $primary={true} onClick={confirmHandler}>
+            <ST.Button width={"auto"} $size={"middle"} $primary={true}>
               확인
             </ST.Button>
           </ST.FlexBox>

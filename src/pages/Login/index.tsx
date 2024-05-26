@@ -11,20 +11,21 @@ const Login = () => {
   const navigate = useNavigate();
   const [inputId, changeIdHandler] = useInput("");
   const [inputPw, changePwHandler] = useInput("");
+  const [required] = useValidate();
 
-  const { validateHandler } = useValidate([
-    { value: inputId, checkType: "", msg: "아이디를 입력하세요" },
-    { value: inputPw, checkType: "", msg: "비밀번호를 입력하세요" },
-  ]);
+  // const { validateHandler } = useValidate([
+  //   { value: inputId, checkType: "", msg: "아이디를 입력하세요" },
+  //   { value: inputPw, checkType: "", msg: "비밀번호를 입력하세요" },
+  // ]);
 
   const loginHandler = () => {
-    if (!validateHandler("alert")) return;
+    // if (!validateHandler("alert")) return;
     // 메인으로 이동
-    navigate("/");
+    navigate("/overview");
   };
 
   const passWordFindHandler = () => {
-    navigate("../join");
+    navigate("../pwFind");
   };
 
   const joinHandler = () => {

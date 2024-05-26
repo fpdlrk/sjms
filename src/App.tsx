@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import Router from "./router/Router";
 import MessageAlert from "./components/MessageAlert";
-import useMessageAlertStore from "./store/globalStore";
+import { useMessageAlertStore } from "./store/globalStore";
 import MessageConfirm from "./components/MessageConfirm";
 
 function App() {

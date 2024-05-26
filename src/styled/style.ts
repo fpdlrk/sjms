@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 import { theme } from "./../styled/theme";
-import { EtcMixin, BorderMixin, ButtonMixinFn, FontWeightMixin, PaddingMarginMixin, RadiusMixin, WidthHeightMixin } from "./mixin";
+import { EtcMixin, BorderMixin, ButtonMixinFn, FontWeightMixin, PaddingMarginMixin, RadiusMixin, WidthHeightMixin, PositionMixin } from "./mixin";
 import { InputFieldIprops, CheckboxRadioIprops, CommonType, FormGroupIprops, ButtonIprops, ImageIprops } from "./styledPropType";
 import checkOutline from "../assets/img/Check_outline.svg";
 import check from "../assets/img/Check.svg";
@@ -8,12 +8,16 @@ import radioOutline from "../assets/img/Radio_outline.svg";
 import radio from "../assets/img/Radio.svg";
 
 const CommCss = css`
+  &:focus {
+    outline: none;
+  }
   ${WidthHeightMixin};
   ${PaddingMarginMixin};
   ${FontWeightMixin}
   ${EtcMixin}
   ${RadiusMixin}
   ${BorderMixin}
+  ${PositionMixin}
 `;
 
 export const FlexBox = styled.div<CommonType>`
@@ -21,7 +25,9 @@ export const FlexBox = styled.div<CommonType>`
   flex-direction: ${(props) => props?.$direction || "row"};
   justify-content: ${(props) => props?.$justify || "start"};
   align-items: ${(props) => props?.$align || "start"};
-  ${CommCss}
+  flex: ${(props) => props?.$flex && props?.$flex};
+
+  ${CommCss};
 `;
 
 export const InputField = styled.input.attrs<InputFieldIprops>((props) => ({
@@ -138,6 +144,28 @@ export const Button = styled.button<ButtonIprops>`
       ? props.theme.inputSize.small
       : props.theme.inputSize.middle};
   padding: 0 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > svg {
+    margin: 0 5px 0 0;
+    font-size: ${(props) =>
+      props.$size === "lager"
+        ? "20px"
+        : props.$size === "middle"
+        ? props.theme.inputSize.middle
+        : props.$size === "small"
+        ? props.theme.inputSize.small
+        : props.theme.inputSize.middle};
+  }
+
+  border-width: 1px;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: #000;
+  font-weight: 500;
+  transition: all 0.3s;
+  cursor: pointer;
 
   ${(props) => {
     if (props.$second) {
@@ -156,13 +184,14 @@ export const Button = styled.button<ButtonIprops>`
       return ButtonMixinFn.button({ $background: props.$background });
     }
   }}
-  border-width:1px;
-  border-radius: 6px;
-  border-style: solid;
-  border-color: #000;
-  font-weight: 500;
-  transition: all 0.3s;
-  cursor: pointer;
+
+  &:disabled {
+    background-color: ${theme.color.disabled} !important;
+    border-color: ${theme.color.disabledLine} !important;
+    color: ${theme.color.disabledFont} !important;
+    cursor: default;
+  }
+
   ${CommCss};
 `;
 

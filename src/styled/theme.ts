@@ -17,9 +17,13 @@ export const theme = {
     darkGray: "#333333",
     lightGray: "#939292",
     superLightGray: "#F1F2F5",
+    white: "#ffffff",
     fcFirst: "#333333",
     fcSecond: "#666666",
     fcThird: "#888888",
     fcDisabled: "#f6f6f6",
+    disabled: "#f4f4f4",
+    disabledLine: "#e9e7e7",
+    disabledFont: "#bcbcbc",
   },
 };

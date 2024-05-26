@@ -12,6 +12,7 @@ export type WidthHeightIprops = {
 export type ImageIprops = WidthHeightIprops & PaddingMarginMixinIprops & PositionIprops & {};
 
 export type EtcIprops = {
+  id?: string | number;
   $background?: string; // 배경색
   $bc?: string; // border 색상
   $bw?: number; // border 선 두께
@@ -22,6 +23,9 @@ export type EtcIprops = {
   $bl?: number; // border-left 선 두께
   $ba?: number; // border 선 두께
   $display?: string;
+  $lineheight?: number;
+  $zindex?: number;
+  $cursor?: string;
 };
 
 export type ButtonIprops = CommonType & {
@@ -40,17 +44,18 @@ export type RadiusIprops = {
 };
 
 export type PositionIprops = {
-  position?: string;
-  top?: number;
-  right?: number;
-  bottom?: number;
-  left?: number;
+  $position?: string;
+  $top?: number;
+  $right?: number;
+  $bottom?: number;
+  $left?: number;
 };
 
 export type FlexIprops = {
   $direction?: string;
   $justify?: string;
   $align?: string;
+  $flex?: number;
 };
 
 export type FontAttrIProps = {

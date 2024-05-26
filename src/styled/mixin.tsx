@@ -18,14 +18,17 @@ export const WidthHeightMixin = css<WidthHeightIprops>`
 export const EtcMixin = css<EtcIprops>`
   background: ${(props) => props.$background && props.$background};
   display: ${(props) => props.$display && props.$display};
+  line-height: ${(props) => props.$lineheight && props.$lineheight};
+  z-index: ${(props) => props.$zindex && props.$zindex};
+  cursor: ${(props) => props.$cursor && props.$cursor};
 `;
 
 export const PositionMixin = css<PositionIprops>`
-  position: ${(props) => props.position && props.position};
-  top: ${(props) => props.top && props.top + "px"};
-  right: ${(props) => props.right && props.right + "px"};
-  bottom: ${(props) => props.bottom && props.bottom + "px"};
-  left: ${(props) => props.left && props.left + "px"};
+  position: ${(props) => props.$position && props.$position};
+  top: ${(props) => props.$top && props.$top + "px"};
+  right: ${(props) => props.$right && props.$right + "px"};
+  bottom: ${(props) => props.$bottom && props.$bottom + "px"};
+  left: ${(props) => props.$left && props.$left + "px"};
 `;
 
 export const PaddingMarginMixin = css<PaddingMarginMixinIprops>`

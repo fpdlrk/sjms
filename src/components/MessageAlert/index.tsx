@@ -1,5 +1,5 @@
 import React from "react";
-import useMessageAlertStore from "../../store/globalStore";
+import { useMessageAlertStore } from "../../store/globalStore";
 import * as ST from "../../styled/style";
 import { TbX } from "react-icons/tb";
 import { theme } from "./../../styled/theme";

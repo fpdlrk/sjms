@@ -3,7 +3,8 @@ import logo from "../../assets/img/logo.svg";
 import * as ST from "../../styled/style";
 import useInput from "../../hooks/useInput";
 import useValidate from "../../hooks/useValidate";
-import useMessageAlertStore from "../../store/globalStore";
+import { useMessageAlertStore } from "../../store/globalStore";
+import { theme } from "../../styled/theme";
 
 const Join = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Join = () => {
   const [inputPw, inputPwHandler] = useInput("");
   const [inputPwRe, inputPwAgainHandler] = useInput("");
   const { setIsShow }: any = useMessageAlertStore();
+  const [required] = useValidate();
 
   /**
    * callFunc 함수
@@ -23,18 +25,7 @@ const Join = () => {
     return true;
   };
 
-  const { validateHandler } = useValidate([
-    { value: inputEmail, checkType: "require", msg: "필수입력 사항 입니다." },
-    { value: inputEmail, checkType: "email", msg: "이메일이 잘못 되었습니다." },
-    { value: inputName, checkType: "require", msg: "이름 필수입력 사항 입니다." },
-    { value: inputPw, checkType: "require", msg: "비번 팔수사항2222 입니다." },
-    { value: inputPwRe, checkType: "require", msg: "비번확인 팔수사항333 입니다." },
-    { value: inputPwRe, checkType: "callback", msg: "비번확인 팔수사항333 입니다.", rule: callFunc },
-  ]);
-
   const joinHandler = () => {
-    console.log("@@@@@@@@@@@", validateHandler("alert"));
-    if (!validateHandler("alert")) return;
     // validateHandler("alert");
     navigate("../joinComplate");
   };
@@ -46,7 +37,6 @@ const Join = () => {
   };
 
   const joinConfirmHandler = () => {
-    validateHandler("confirm", okCallback);
     // navigate("../joinComplate");
   };
 
@@ -55,6 +45,9 @@ const Join = () => {
       <ST.BasicTagItem width={400}>
         <ST.BasicTagItem $mb={40}>
           <ST.ImageBox src={logo}></ST.ImageBox>
+          <ST.TextItem $mt={15} $fc={theme.color.primary} $fw="bold">
+            회원가입
+          </ST.TextItem>
         </ST.BasicTagItem>
         <ST.FormGroup $gapT={20}>
           <ST.FormItem>
