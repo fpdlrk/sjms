@@ -6,6 +6,11 @@ import { ReactComponent as Xcircle } from "../../assets/img/x-02.svg";
 import { ReactComponent as Activity } from "../../assets/img/activity.svg";
 import { DetailIprops } from "../../types/type";
 import SelectBox from "../../components/Selectbox";
+import { pattern, useYn } from "../../types/constant";
+import Once from "./Once";
+import Daily from "./Daily";
+import Weekly from "./Weekly";
+import Monthly from "./Monthly";
 
 const Detail = ({}: any) => {
   const dummyFn = () => {};
@@ -71,52 +76,20 @@ const Detail = ({}: any) => {
             <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobPattern" $ess={true}>
               반복패턴
             </ST.LabelText>
-            <ST.InputField
-              width={"100%"}
-              id={"jobPattern"}
-              name={"jobPattern"}
-              value={""}
-              $pa={10}
-              type={"text"}
-              $size={"middle"}
-              placeholder={"placeholder"}
-              onChange={dummyFn}
-            ></ST.InputField>
+            <SelectBox optionItem={pattern} size="middle" />
           </ST.FormItem>
 
-          <ST.FormItem>
-            <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSdt" $ess={true}>
-              시작일
-            </ST.LabelText>
-            <ST.InputField
-              width={"100%"}
-              id={"jobSdt"}
-              name={"jobSdt"}
-              value={""}
-              $pa={10}
-              type={"text"}
-              $size={"middle"}
-              placeholder={"placeholder"}
-              onChange={dummyFn}
-            ></ST.InputField>
-          </ST.FormItem>
+          {/* 패턴에 따른 UI변경부분 */}
+          <Once />
+          <Daily />
+          <Weekly />
+          <Monthly />
 
           <ST.FormItem>
             <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobauseYn" $ess={true}>
               사용유무
             </ST.LabelText>
-            <ST.InputField
-              width={"100%"}
-              id={"jobauseYn"}
-              name={"jobauseYn"}
-              value={""}
-              $pa={10}
-              type={"text"}
-              $size={"middle"}
-              placeholder={"placeholder"}
-              onChange={dummyFn}
-            ></ST.InputField>
-            <SelectBox />
+            <SelectBox optionItem={useYn} size="middle" />
           </ST.FormItem>
 
           <ST.FlexBox $mt={40} className="dfsdfsdf">
@@ -128,6 +101,11 @@ const Detail = ({}: any) => {
             <ST.Button width={"auto"} $ml={10} $second={true} onClick={dummyFn}>
               <Edit />
               수정
+            </ST.Button>
+
+            <ST.Button width={"auto"} $ml={10} $primary={true} onClick={dummyFn}>
+              <Edit />
+              등록
             </ST.Button>
           </ST.FlexBox>
         </ST.FormGroup>

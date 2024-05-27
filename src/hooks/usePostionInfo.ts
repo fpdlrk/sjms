@@ -1,6 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-const randomId = Math.floor(Math.random() * 10000000);
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+
 const usePositionInfo = () => {
+  const randomId = Math.floor(Math.random() * 10000000);
   const winW = window.innerWidth;
   const [targetWidth, setTargetWidth] = useState(0);
   const [pos, setPos] = useState({
@@ -8,21 +9,30 @@ const usePositionInfo = () => {
     x: 0,
     y: 0,
   });
+
   const posLocation = (e: React.MouseEvent<HTMLElement>) => {
-    setPos({ isShow: true, x: e.currentTarget.offsetLeft, y: e.currentTarget.offsetTop });
+    setPos({
+      isShow: true,
+      x: e.currentTarget.offsetLeft + e.currentTarget.offsetWidth,
+      y: e.currentTarget.offsetTop,
+    });
     setTargetWidth(e.currentTarget.offsetWidth);
     e.preventDefault();
   };
-  const objRemove = (e: any) => {
-    if (e.type === "blur") {
-      setTimeout(() => {
-        setPos({ ...pos, isShow: false });
-      }, 50);
-    }
 
-    e.stopPropagation();
-    e.preventDefault();
-  };
+  const objRemove = useCallback(
+    (e: any) => {
+      if (e.type === "blur") {
+        setTimeout(() => {
+          setPos({ ...pos, isShow: false });
+        }, 50);
+      }
+
+      e.stopPropagation();
+      e.preventDefault();
+    },
+    [posLocation]
+  );
 
   useLayoutEffect(() => {
     const targetObj = document.getElementById(randomId.toString());

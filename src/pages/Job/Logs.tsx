@@ -3,28 +3,32 @@ import { styled } from "styled-components";
 import { theme } from "../../styled/theme";
 import { ReactComponent as CheckSquare } from "../../assets/img/check-square-broken.svg";
 import { ReactComponent as Xcircle } from "../../assets/img/x-circle-contained.svg";
-import { LoginDataIprops } from "../../types/type";
+import { LogsDataIprops } from "../../types/type";
 import React from "react";
 
-const Logs = ({ logData }: LoginDataIprops) => {
+const Logs = ({ logData }: LogsDataIprops) => {
   return (
     <LogBoxOuter className="LogBoxOuter">
       <TitlArea $justify="space-between" className="log">
         <ST.SecTitle>JOB LOGS</ST.SecTitle>
-        <ST.FlexBox $fs={12} $fw="middle">
+        <ST.FlexBox $fs={12} $fw="middle" $fc={theme.color.fcThird}>
           <ST.FlexBox $align="center">
-            <ST.Icon $mr={2} $fs={14} $fc={theme.color.success}>
+            <ST.Icon $mr={2} $fs={15} $fc={theme.color.success}>
               <CheckSquare />
             </ST.Icon>
             EXECUTE
-            <ST.SapnItem $ml={5}>1</ST.SapnItem>
+            <ST.SapnItem $ml={5} $fw={"bold"} $fc={theme.color.primary}>
+              1
+            </ST.SapnItem>
           </ST.FlexBox>
           <ST.FlexBox $align="center" $ml={10}>
-            <ST.Icon $mr={2} $fs={14} $fc={theme.color.failed}>
+            <ST.Icon $mr={2} $fs={15} $fc={theme.color.failed}>
               <Xcircle />
             </ST.Icon>
             FAILE
-            <ST.SapnItem $ml={5}>2</ST.SapnItem>
+            <ST.SapnItem $ml={5} $fw={"bold"} $fc={theme.color.primary}>
+              2
+            </ST.SapnItem>
           </ST.FlexBox>
         </ST.FlexBox>
       </TitlArea>

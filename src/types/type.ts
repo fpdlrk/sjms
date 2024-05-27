@@ -19,7 +19,7 @@ export type CheckboxIprops = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type LoginDataIprops = {
+export type LogsDataIprops = {
   logData: LogsIprops[];
 };
 
