@@ -1,6 +1,16 @@
 import { css, styled } from "styled-components";
 import { theme } from "./../styled/theme";
-import { EtcMixin, BorderMixin, ButtonMixinFn, FontWeightMixin, PaddingMarginMixin, RadiusMixin, WidthHeightMixin, PositionMixin } from "./mixin";
+import {
+  EtcMixin,
+  BorderMixin,
+  ButtonMixinFn,
+  FontWeightMixin,
+  PaddingMarginMixin,
+  RadiusMixin,
+  WidthHeightMixin,
+  PositionMixin,
+  ellipsis,
+} from "./mixin";
 import { InputFieldIprops, CheckboxRadioIprops, CommonType, FormGroupIprops, ButtonIprops, ImageIprops } from "./styledPropType";
 import checkOutline from "../assets/img/Check_outline.svg";
 import check from "../assets/img/Check.svg";
@@ -26,7 +36,6 @@ export const FlexBox = styled.div<CommonType>`
   justify-content: ${(props) => props?.$justify || "start"};
   align-items: ${(props) => props?.$align || "start"};
   flex: ${(props) => props?.$flex && props?.$flex};
-
   ${CommCss};
 `;
 
@@ -63,7 +72,7 @@ export const ChkeckBox = styled.input.attrs<CheckboxRadioIprops>((props) => ({
   checked: props.checked,
   onChange: props.onChange,
 }))`
-  height: 16px;
+  width: 16px;
   height: 16px;
   background-image: url(${checkOutline});
   background-size: 100%;
@@ -78,7 +87,6 @@ export const Radio = styled(ChkeckBox).attrs((props) => {
   return {
     type: "radio",
     checked: props.checked,
-    onChange: props.onChange,
   };
 })`
   background-image: url(${radioOutline});
@@ -112,6 +120,10 @@ export const TextItem = styled.div<CommonType>`
   ${CommCss};
 `;
 
+export const SapnItem = styled.span<CommonType>`
+  ${CommCss};
+`;
+
 export const Icon = styled.div<CommonType>`
   line-height: 0;
   ${CommCss};
@@ -123,7 +135,7 @@ export const FormItem = styled(BasicTagItem)`
 `;
 
 export const FormGroup = styled.div<FormGroupIprops>`
-  & > div {
+  & > ${FormItem} {
     margin-top: ${(props) => props.$gapT && props.$gapT + "px"};
     margin-right: ${(props) => props.$gapR && props.$gapR + "px"};
     margin-bottom: ${(props) => props.$gapB && props.$gapB + "px"};
@@ -142,21 +154,14 @@ export const Button = styled.button<ButtonIprops>`
       ? props.theme.inputSize.middle
       : props.$size === "small"
       ? props.theme.inputSize.small
-      : props.theme.inputSize.middle};
+      : "38px"};
   padding: 0 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   > svg {
     margin: 0 5px 0 0;
-    font-size: ${(props) =>
-      props.$size === "lager"
-        ? "20px"
-        : props.$size === "middle"
-        ? props.theme.inputSize.middle
-        : props.$size === "small"
-        ? props.theme.inputSize.small
-        : props.theme.inputSize.middle};
+    font-size: ${(props) => (props.$size === "lager" ? "20px" : props.$size === "middle" ? "20px" : props.$size === "small" ? "20px" : "20px")};
   }
 
   border-width: 1px;
@@ -166,6 +171,10 @@ export const Button = styled.button<ButtonIprops>`
   font-weight: 500;
   transition: all 0.3s;
   cursor: pointer;
+
+  ${Icon} {
+    margin: 0 5px 0 0;
+  }
 
   ${(props) => {
     if (props.$second) {
@@ -200,6 +209,7 @@ export const TextButton = styled.button<ButtonIprops>`
   border: none;
   cursor: pointer;
   background: none;
+  text-align: left;
   ${CommCss}
 `;
 
@@ -251,4 +261,68 @@ export const PopupAndAlertBottom = styled.div<CommonType>`
   padding: 0px 15px 15px 15px;
   /* background-color: ${theme.color.superLightGray}; */
   ${CommCss}
+`;
+
+export const SubLayout = styled.div<CommonType>`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  ${CommCss}
+`;
+
+export const SecTitle = styled.h2`
+  font-size: 12px;
+  color: ${theme.color.fcThird};
+`;
+
+export const Filter = styled.div`
+  padding: 15px;
+  background-color: ${theme.color.superLightGray};
+`;
+
+export const SubLayoutBody = styled(FlexBox)`
+  flex: 1;
+`;
+
+export const SubLayoutLeft = styled.div`
+  width: 290px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid ${theme.color.midLightGray};
+  ${SecTitle} {
+    padding: 25px 15px 10px 15px;
+  }
+`;
+
+export const SubLayoutRight = styled.div`
+  height: 100%;
+  flex: 1;
+  ${SecTitle} {
+    padding: 0 0 10px 0;
+  }
+`;
+
+export const PopupMenu = styled(FlexBox)`
+  min-width: 80px;
+  /* height: 100px; */
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: ${theme.color.white};
+  border: 1px solid ${theme.color.midLightGray};
+  z-index: 10;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  > button {
+    width: 100%;
+    padding: 5px 15px;
+    text-align: left;
+    font-size: 12px;
+    &:hover {
+      background-color: ${theme.color.superLightGray};
+      color: ${theme.color.primary};
+    }
+  }
 `;

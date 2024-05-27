@@ -21,6 +21,10 @@ export const EtcMixin = css<EtcIprops>`
   line-height: ${(props) => props.$lineheight && props.$lineheight};
   z-index: ${(props) => props.$zindex && props.$zindex};
   cursor: ${(props) => props.$cursor && props.$cursor};
+  flex-direction: ${(props) => props?.$direction && props?.$direction};
+  justify-content: ${(props) => props?.$justify && props?.$justify};
+  align-items: ${(props) => props?.$align && props?.$align};
+  flex: ${(props) => props?.$flex && props?.$flex};
 `;
 
 export const PositionMixin = css<PositionIprops>`
@@ -70,6 +74,15 @@ export const FlexMixin = {
         justify-content : ${props?.$justify || "start"};
         align-items : ${props?.$align || "start"}
     `,
+};
+
+export const ellipsis = () => {
+  return css`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  `;
 };
 
 const hexColorToRGB = (hexColor: string) => {
@@ -130,6 +143,10 @@ export const BorderMixin = css<EtcIprops>`
 
     if (props.$bw) {
       return `border-width: ${props.$bw}px;`;
+    }
+
+    if (props.$bn) {
+      return `border: none !important;`;
     }
   }}
 

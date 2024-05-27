@@ -16,6 +16,7 @@ export const theme = {
     secondary: "#046EEF",
     darkGray: "#333333",
     lightGray: "#939292",
+    midLightGray: "#eeeeee",
     superLightGray: "#F1F2F5",
     white: "#ffffff",
     fcFirst: "#333333",
@@ -25,5 +26,8 @@ export const theme = {
     disabled: "#f4f4f4",
     disabledLine: "#e9e7e7",
     disabledFont: "#bcbcbc",
+    success: "#008B00",
+    info: "#046EEF",
+    failed: "#FF2512",
   },
 };

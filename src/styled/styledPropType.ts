@@ -11,7 +11,7 @@ export type WidthHeightIprops = {
 
 export type ImageIprops = WidthHeightIprops & PaddingMarginMixinIprops & PositionIprops & {};
 
-export type EtcIprops = {
+export type EtcIprops = FlexIprops & {
   id?: string | number;
   $background?: string; // 배경색
   $bc?: string; // border 색상
@@ -22,6 +22,7 @@ export type EtcIprops = {
   $bb?: number; // border-bottom 선 두께
   $bl?: number; // border-left 선 두께
   $ba?: number; // border 선 두께
+  $bn?: string;
   $display?: string;
   $lineheight?: number;
   $zindex?: number;

@@ -7,7 +7,7 @@ import Overview from "../pages/Overview";
 import Pwfind from "../pages/Pwfind/Pwfind";
 import PwfindComplate from "../pages/Pwfind/Complate";
 import IndexPage from "../pages/Index/Index";
-import JobList from "../pages/JobList";
+import Job from "../pages/Job";
 import UserList from "../pages/UserList";
 import UserInfoModify from "../pages/Join/UserInfoModify";
 
@@ -23,7 +23,7 @@ const Router = () => {
         <Route path="/pwFind" element={<Pwfind />}></Route>
         <Route path="/pwFindComplate" element={<PwfindComplate />}></Route>
         <Route path="/overview" element={<Overview />}></Route>
-        <Route path="/job" element={<JobList />}></Route>
+        <Route path="/job" element={<Job />}></Route>
         <Route path="/user" element={<UserList />}></Route>
       </Routes>
     </BrowserRouter>

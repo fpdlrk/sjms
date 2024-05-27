@@ -14,9 +14,13 @@ const usePositionInfo = () => {
     e.preventDefault();
   };
   const objRemove = (e: any) => {
-    setTimeout(() => {
-      setPos({ ...pos, isShow: false });
-    }, 300);
+    if (e.type === "blur") {
+      setTimeout(() => {
+        setPos({ ...pos, isShow: false });
+      }, 50);
+    }
+
+    e.stopPropagation();
     e.preventDefault();
   };
 
