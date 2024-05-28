@@ -16,6 +16,8 @@ import checkOutline from "../assets/img/Check_outline.svg";
 import check from "../assets/img/Check.svg";
 import radioOutline from "../assets/img/Radio_outline.svg";
 import radio from "../assets/img/Radio.svg";
+import calendar from "../assets/img/calendar-07.svg";
+import watch from "../assets/img/stopwatch-03.svg";
 
 const CommCss = css`
   &:focus {
@@ -37,6 +39,19 @@ export const FlexBox = styled.div<CommonType>`
   align-items: ${(props) => props?.$align || "start"};
   flex: ${(props) => props?.$flex && props?.$flex};
   ${CommCss};
+`;
+
+export const InputCommStyle = css<InputFieldIprops>`
+  height: ${(props) =>
+    props.$size === "lager"
+      ? props.theme.inputSize.lager
+      : props.$size === "middle"
+      ? props.theme.inputSize.middle
+      : props.$size === "small"
+      ? props.theme.inputSize.small
+      : "32px"};
+  border: 1px solid #eee;
+  border-radius: 4px;
 `;
 
 export const InputField = styled.input.attrs<InputFieldIprops>((props) => ({
@@ -324,5 +339,37 @@ export const PopupMenu = styled(FlexBox)`
       background-color: ${theme.color.superLightGray};
       color: ${theme.color.primary};
     }
+  }
+`;
+
+export const DatePickerWrap = styled.div<InputFieldIprops>`
+  ${InputCommStyle}
+  overflow: hidden;
+  .react-datepicker-wrapper {
+    position: relative;
+    background-image: url(${calendar});
+    background-position: calc(100% - 10px) 50%;
+    background-repeat: no-repeat;
+    background-size: 18px;
+  }
+  .react-datepicker-wrapper,
+  .react-datepicker__input-container,
+  input[type="text"] {
+    width: 100%;
+    height: inherit;
+    border: none;
+  }
+
+  input[type="text"] {
+    height: inherit;
+    padding: 0 10px;
+    border: none;
+    background-color: transparent;
+  }
+`;
+
+export const TimePickerWrap = styled(DatePickerWrap)<InputFieldIprops>`
+  .react-datepicker-wrapper {
+    background-image: url(${watch});
   }
 `;

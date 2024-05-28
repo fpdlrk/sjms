@@ -14,8 +14,6 @@ const UserInfo = () => {
   const { setData, callback, setIsShow } = useMessageAlertStore();
   const { isEmpty } = useValidate();
 
-  console.log(randomId);
-
   const okCallback = () => {
     setIsShow(false);
     navigate("../login");

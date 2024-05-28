@@ -10,15 +10,18 @@ const usePositionInfo = () => {
     y: 0,
   });
 
-  const posLocation = (e: React.MouseEvent<HTMLElement>) => {
-    setPos({
-      isShow: true,
-      x: e.currentTarget.offsetLeft + e.currentTarget.offsetWidth,
-      y: e.currentTarget.offsetTop,
-    });
-    setTargetWidth(e.currentTarget.offsetWidth);
-    e.preventDefault();
-  };
+  const posLocation = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      setPos({
+        isShow: true,
+        x: e.currentTarget.offsetLeft + e.currentTarget.offsetWidth,
+        y: e.currentTarget.offsetTop,
+      });
+      setTargetWidth(e.currentTarget.offsetWidth);
+      e.preventDefault();
+    },
+    [randomId]
+  );
 
   const objRemove = useCallback(
     (e: any) => {
@@ -31,7 +34,7 @@ const usePositionInfo = () => {
       e.stopPropagation();
       e.preventDefault();
     },
-    [posLocation]
+    [randomId]
   );
 
   useLayoutEffect(() => {

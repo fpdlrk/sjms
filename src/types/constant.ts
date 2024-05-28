@@ -1,7 +1,11 @@
 // 반복패턴
 export type OptionsIprops = {
+  id?: string;
+  name?: string;
   size?: "small" | "middle" | "lager" | undefined;
+  selectedValue?: string;
   optionItem: PattrnIprops[];
+  handleSelect: (selectKey: string) => void;
 };
 
 export type PattrnIprops = {

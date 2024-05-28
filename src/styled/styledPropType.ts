@@ -81,7 +81,7 @@ export type PaddingMarginMixinIprops = {
 };
 
 export type InputFieldIprops = InputType & {
-  type: "text" | "password" | "number";
+  type?: "text" | "password" | "number";
   value?: string | number | undefined;
   $size?: "small" | "middle" | "lager";
   placeholder?: string;

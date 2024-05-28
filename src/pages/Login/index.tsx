@@ -1,7 +1,5 @@
 import logo from "../../assets/img/logo.svg";
-import InputField from "../../atom/InputField";
 import useInput from "../../hooks/useInput";
-import FormItem from "../../morecule/FormItem";
 import * as ST from "../../styled/style";
 import { Link, useNavigate } from "react-router-dom";
 import { theme } from "../../styled/theme";
@@ -21,6 +19,7 @@ const Login = () => {
         type: "alert",
         isShow: true,
         msg: "아이디를 입력하세요",
+        okBtn: false,
       });
       return;
     }
@@ -30,6 +29,7 @@ const Login = () => {
         type: "alert",
         isShow: true,
         msg: "비밀번호를 입력하세요",
+        okBtn: false,
       });
       return;
     }

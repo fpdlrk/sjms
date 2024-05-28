@@ -4,6 +4,7 @@ import { ReactComponent as Dot } from "../../assets/img/dot.svg";
 import { ellipsis } from "../../styled/mixin";
 import usePositionInfo from "../../hooks/usePostionInfo";
 import { styled } from "styled-components";
+import React from "react";
 
 const MenuItem = ({ item }: any) => {
   const { posLocation, objRemove, pos, randomId } = usePositionInfo();
@@ -25,7 +26,7 @@ const MenuItem = ({ item }: any) => {
   );
 };
 
-export default MenuItem;
+export default React.memo(MenuItem);
 
 export const LeftMenuItem = styled(ST.BasicTagItem)`
   padding: 15px;

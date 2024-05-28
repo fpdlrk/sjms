@@ -5,6 +5,7 @@ import Router from "./router/Router";
 import MessageAlert from "./components/MessageAlert";
 import { useMessageAlertStore } from "./store/globalStore";
 import MessageConfirm from "./components/MessageConfirm";
+import CusTomTooltip from "./components/Tooltip";
 
 function App() {
   const { isShow } = useMessageAlertStore();
@@ -12,6 +13,7 @@ function App() {
     <>
       {isShow && <MessageAlert />}
       <Router />
+      <CusTomTooltip />
     </>
   );
 }

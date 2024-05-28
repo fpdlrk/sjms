@@ -7,23 +7,17 @@ import React, { useState } from "react";
 import usePositionInfo from "../../hooks/usePostionInfo";
 import { OptionsIprops } from "../../types/constant";
 
-const SelectBox = ({ optionItem, size }: OptionsIprops) => {
-  const [items, setItems] = useState(optionItem);
-  const [selectValue, setSelectValue] = useState("");
+const SelectBox = ({ optionItem, id, size, handleSelect, selectedValue }: OptionsIprops) => {
   const [isExpand, setIsExpand] = useState(false);
   const { posLocation, objRemove, pos, randomId } = usePositionInfo();
-  console.log(randomId, pos.isShow, isExpand);
+
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsExpand((prev) => !prev);
     posLocation(e);
   };
 
-  const selectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // console.log("sdfsdf");
-  };
-
   const optionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSelectValue(e.currentTarget.value);
+    handleSelect(e.currentTarget.value);
     setIsExpand((prev) => !prev);
   };
 
@@ -35,11 +29,11 @@ const SelectBox = ({ optionItem, size }: OptionsIprops) => {
   return (
     <SelectBoxOuter>
       <ST.BasicTagItem onMouseDown={handleMouseDown}>
-        <ClickArea $size={size} value={selectValue} onChange={selectChange}>
-          {items.map((item, index) => {
+        <ClickArea $size={size} value={selectedValue} readOnly>
+          {optionItem.map((item, index) => {
             return (
               <React.Fragment key={index}>
-                <option value={item.value}>{item.label}</option>
+                {selectedValue ? <option value={item.value}>{item.label}</option> : <option value={"null"}>선택</option>}
               </React.Fragment>
             );
           })}
@@ -51,7 +45,7 @@ const SelectBox = ({ optionItem, size }: OptionsIprops) => {
 
       {isExpand && (
         <OptionArea id={randomId} tabIndex={0} onMouseDown={objRemove} onBlur={blurHanlder}>
-          {items.map((item, index) => {
+          {optionItem.map((item, index) => {
             return (
               <React.Fragment key={index}>
                 <OptionClickItem onClick={optionClick} value={item.value}>
@@ -73,7 +67,7 @@ const Icon = styled(ST.Icon)`
   top: 50%;
   transform: translateY(-50%);
 `;
-const ClickArea = styled.select<ButtonIprops>`
+const ClickArea = styled.select<ButtonIprops & { readOnly: boolean }>`
   width: 100%;
   height: ${(props) =>
     props.$size === "lager"
@@ -88,6 +82,7 @@ const ClickArea = styled.select<ButtonIprops>`
   border: 1px solid ${theme.color.midLightGray};
   background-color: ${theme.color.white};
   border-radius: 6px;
+  cursor: pointer;
 `;
 
 const OptionClickItem = styled(ST.TextButton)``;
@@ -120,4 +115,4 @@ const OptionArea = styled(ST.FlexBox)`
   }
 `;
 
-export default SelectBox;
+export default React.memo(SelectBox);
