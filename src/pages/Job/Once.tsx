@@ -3,23 +3,13 @@ import * as ST from "../../styled/style";
 import { theme } from "../../styled/theme";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { styled } from "styled-components";
-import { InputFieldIprops } from "../../styled/styledPropType";
-import { Controller, Path, UseFormRegister } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
-type InputProps = {
-  register: UseFormRegister<IFormValues>;
-};
-
-interface IFormValues {
-  sdt: string;
-  time: string;
-}
-
-const Once = ({ controller, control }: any) => {
+const Once = ({ control }: any) => {
   const [startDate, setStartDate] = useState(new Date());
   return (
     <>
+      {/* 시작종료일 */}
       <ST.FormItem>
         <ST.FlexBox $justify="space-between">
           <ST.BasicTagItem $flex={1}>
@@ -28,8 +18,6 @@ const Once = ({ controller, control }: any) => {
             </ST.LabelText>
 
             <ST.DatePickerWrap width={"100%"} $size={"middle"}>
-              {/* <DatePicker dateFormat="yyyy-MM-dd" selected={startDate} onChange={(date: Date) => setStartDate(date)} /> */}
-
               <Controller
                 name="jobSdt"
                 control={control}
@@ -48,21 +36,12 @@ const Once = ({ controller, control }: any) => {
             </ST.DatePickerWrap>
           </ST.BasicTagItem>
 
-          <ST.BasicTagItem width={120} $ml={10}>
+          <ST.BasicTagItem width={100} $ml={10}>
             <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
               시작 시간
             </ST.LabelText>
 
             <ST.TimePickerWrap width={"100%"} $size={"middle"}>
-              {/* <DatePicker
-                selected={startDate}
-                onChange={(date: Date) => setStartDate(date)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeIntervals={15}
-                timeCaption="Time"
-                dateFormat="h:mm aa"
-              /> */}
               <Controller
                 name="jobSTime"
                 control={control}

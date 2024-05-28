@@ -3,93 +3,185 @@ import * as ST from "../../styled/style";
 import { theme } from "../../styled/theme";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { styled } from "styled-components";
-import { InputFieldIprops } from "../../styled/styledPropType";
-import { Controller, Path, UseFormRegister } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
-type InputProps = {
-  register: UseFormRegister<IFormValues>;
-};
-
-interface IFormValues {
-  sdt: string;
-  time: string;
-}
-
-const Weekly = ({ controller, control }: any) => {
+const Weekly = ({ control, register, errors }: any) => {
   const [startDate, setStartDate] = useState(new Date());
   return (
     <>
+      {/* 시작종료일 */}
       <ST.FormItem>
-        Weekly
         <ST.FlexBox $justify="space-between">
-          <ST.BasicTagItem $flex={1}>
-            <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSdt" $ess={true}>
-              시작일
-            </ST.LabelText>
+          <ST.FlexBox $justify="space-between">
+            <ST.BasicTagItem $flex={1}>
+              <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSdt" $ess={true}>
+                시작일
+              </ST.LabelText>
 
-            <ST.DatePickerWrap width={"100%"} $size={"middle"}>
-              {/* <DatePicker dateFormat="yyyy-MM-dd" selected={startDate} onChange={(date: Date) => setStartDate(date)} /> */}
+              <ST.DatePickerWrap width={"100%"} $size={"middle"}>
+                <Controller
+                  name="jobSdt"
+                  control={control}
+                  render={({ field }) => {
+                    const changeHandler = (value: any) => {
+                      let year = value.getFullYear(); // 년도
+                      let month = value.getMonth() + 1; // 월
+                      let date = value.getDate(); // 날짜
+                      let totalDate = `${year}${month}${date}`;
+                      field.onChange(totalDate);
+                      setStartDate(value);
+                    };
+                    return <DatePicker dateFormat="yyyy-MM-dd" selected={startDate} onChange={(date: Date) => changeHandler(date)} />;
+                  }}
+                />
+              </ST.DatePickerWrap>
+            </ST.BasicTagItem>
 
-              <Controller
-                name="jobSdt"
-                control={control}
-                render={({ field }) => {
-                  const changeHandler = (value: any) => {
-                    let year = value.getFullYear(); // 년도
-                    let month = value.getMonth() + 1; // 월
-                    let date = value.getDate(); // 날짜
-                    let totalDate = `${year}${month}${date}`;
-                    field.onChange(totalDate);
-                    setStartDate(value);
-                  };
-                  return <DatePicker dateFormat="yyyy-MM-dd" selected={startDate} onChange={(date: Date) => changeHandler(date)} />;
-                }}
-              />
-            </ST.DatePickerWrap>
-          </ST.BasicTagItem>
+            <ST.BasicTagItem width={100} $ml={10}>
+              <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
+                시작 시간
+              </ST.LabelText>
 
-          <ST.BasicTagItem width={120} $ml={10}>
-            <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
-              시작 시간
-            </ST.LabelText>
+              <ST.TimePickerWrap width={"100%"} $size={"middle"}>
+                <Controller
+                  name="jobSTime"
+                  control={control}
+                  render={({ field }) => {
+                    const changeHandler = (value: any) => {
+                      let totalTime = `${("0" + value.getHours()).slice(-2)}${("0" + value.getMinutes()).slice(-2)}`;
+                      field.onChange(totalTime);
+                      setStartDate(value);
+                    };
+                    return (
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date: Date) => changeHandler(date)}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={5}
+                        timeCaption="Time"
+                        timeFormat="HH:mm"
+                        dateFormat="h:mm aa"
+                      />
+                    );
+                  }}
+                />
+              </ST.TimePickerWrap>
+            </ST.BasicTagItem>
+          </ST.FlexBox>
 
-            <ST.TimePickerWrap width={"100%"} $size={"middle"}>
-              {/* <DatePicker
-                selected={startDate}
-                onChange={(date: Date) => setStartDate(date)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeIntervals={15}
-                timeCaption="Time"
-                dateFormat="h:mm aa"
-              /> */}
-              <Controller
-                name="jobSTime"
-                control={control}
-                render={({ field }) => {
-                  const changeHandler = (value: any) => {
-                    let totalTime = `${("0" + value.getHours()).slice(-2)}${("0" + value.getMinutes()).slice(-2)}`;
-                    field.onChange(totalTime);
-                    setStartDate(value);
-                  };
-                  return (
-                    <DatePicker
-                      selected={startDate}
-                      onChange={(date: Date) => changeHandler(date)}
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeIntervals={5}
-                      timeCaption="Time"
-                      timeFormat="HH:mm"
-                      dateFormat="h:mm aa"
-                    />
-                  );
-                }}
-              />
-            </ST.TimePickerWrap>
-          </ST.BasicTagItem>
+          <ST.FlexBox $ml={15} $justify="space-between">
+            <ST.BasicTagItem $flex={1}>
+              <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobEdt" $ess={true}>
+                종료일
+              </ST.LabelText>
+
+              <ST.DatePickerWrap width={"100%"} $size={"middle"}>
+                <Controller
+                  name="jobEdt"
+                  control={control}
+                  render={({ field }) => {
+                    const changeHandler = (value: any) => {
+                      let year = value.getFullYear(); // 년도
+                      let month = value.getMonth() + 1; // 월
+                      let date = value.getDate(); // 날짜
+                      let totalDate = `${year}${month}${date}`;
+                      field.onChange(totalDate);
+                      setStartDate(value);
+                    };
+                    return <DatePicker dateFormat="yyyy-MM-dd" selected={startDate} onChange={(date: Date) => changeHandler(date)} />;
+                  }}
+                />
+              </ST.DatePickerWrap>
+            </ST.BasicTagItem>
+
+            <ST.BasicTagItem width={100} $ml={10}>
+              <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobETime" $ess={true}>
+                종료 시간
+              </ST.LabelText>
+
+              <ST.TimePickerWrap width={"100%"} $size={"middle"}>
+                <Controller
+                  name="jobETime"
+                  control={control}
+                  render={({ field }) => {
+                    const changeHandler = (value: any) => {
+                      let totalTime = `${("0" + value.getHours()).slice(-2)}${("0" + value.getMinutes()).slice(-2)}`;
+                      field.onChange(totalTime);
+                      setStartDate(value);
+                    };
+                    return (
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date: Date) => changeHandler(date)}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={5}
+                        timeCaption="Time"
+                        timeFormat="HH:mm"
+                        dateFormat="h:mm aa"
+                      />
+                    );
+                  }}
+                />
+              </ST.TimePickerWrap>
+            </ST.BasicTagItem>
+          </ST.FlexBox>
         </ST.FlexBox>
+      </ST.FormItem>
+
+      {/* 요일선택 */}
+
+      {/* 반복주기 */}
+      <ST.FormItem>
+        <ST.BasicTagItem>
+          <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="days" $ess={true}>
+            반복횟수 및 주기
+          </ST.LabelText>
+          <ST.FlexBox $justify="space-between">
+            <ST.FlexBox $direction="column">
+              <ST.FlexBox $justify="space-between" $align="center">
+                <ST.InputField
+                  width={"100%"}
+                  id={"days"}
+                  $pa={10}
+                  type={"number"}
+                  $size={"middle"}
+                  placeholder={"days"}
+                  {...register("days", {
+                    required: true,
+                  })}
+                  $invalid={errors.days ? "true" : "false"}
+                ></ST.InputField>
+                <ST.LabelText $pl={5} $fs={12} $fc={theme.color.fcFirst} $fw="bold">
+                  Days
+                </ST.LabelText>
+              </ST.FlexBox>
+              {errors.days && <ST.ErrorMsg>필수입력 사항입니다.</ST.ErrorMsg>}
+            </ST.FlexBox>
+
+            <ST.FlexBox $direction="column" $ml={10}>
+              <ST.FlexBox $justify="space-between" $align="center">
+                <ST.InputField
+                  width={"100%"}
+                  id={"hour"}
+                  $pa={10}
+                  type={"number"}
+                  $size={"middle"}
+                  placeholder={"hour"}
+                  {...register("hour", {
+                    required: true,
+                  })}
+                  $invalid={errors.hour ? "true" : "false"}
+                ></ST.InputField>
+                <ST.LabelText $pl={5} $fs={12} $fc={theme.color.fcFirst} $fw="bold">
+                  Hour
+                </ST.LabelText>
+              </ST.FlexBox>
+              {errors.hour && <ST.ErrorMsg>필수입력 사항입니다.</ST.ErrorMsg>}
+            </ST.FlexBox>
+          </ST.FlexBox>
+        </ST.BasicTagItem>
       </ST.FormItem>
     </>
   );

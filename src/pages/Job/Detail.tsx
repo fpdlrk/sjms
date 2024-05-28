@@ -24,6 +24,11 @@ type Inputs = {
   jobauseYn: string;
   jobSdt: string;
   jobSTime: string;
+  jobEdt: string;
+  jobETime: string;
+  days: string;
+  hour: string;
+  minute: string;
 };
 
 const defaultValues = {
@@ -34,6 +39,11 @@ const defaultValues = {
   jobauseYn: "",
   jobSdt: "",
   jobSTime: "",
+  jobEdt: "",
+  jobETime: "",
+  days: "",
+  hour: "",
+  minute: "",
 };
 
 const Detail = () => {
@@ -57,6 +67,7 @@ const Detail = () => {
     });
 
     saveData.current = data;
+    console.log(saveData.current);
     return;
   };
 
@@ -170,10 +181,10 @@ const Detail = () => {
             </ST.FormItem>
 
             {/* 패턴에 따른 UI변경부분 */}
-            {selPattern === "once" && <Once controller={Controller} control={control} />}
-            {selPattern === "daily" && <Daily controller={Controller} control={control} />}
-            {selPattern === "weekly" && <Weekly controller={Controller} control={control} />}
-            {selPattern === "monthly" && <Monthly controller={Controller} control={control} />}
+            {selPattern === "once" && <Once register={register} errors={errors} control={control} />}
+            {selPattern === "daily" && <Daily register={register} errors={errors} control={control} />}
+            {selPattern === "weekly" && <Weekly register={register} errors={errors} control={control} />}
+            {selPattern === "monthly" && <Monthly register={register} errors={errors} control={control} />}
 
             <ST.FormItem>
               <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobauseYn" $ess={true}>
