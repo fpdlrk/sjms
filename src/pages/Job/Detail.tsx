@@ -38,6 +38,7 @@ const defaultValues = {
 
 const Detail = () => {
   const { setData, setIsShow } = useMessageAlertStore();
+  const [selPattern, setSelPattern] = useState("once");
   const saveData = useRef<any>(null);
   const {
     control,
@@ -71,7 +72,7 @@ const Detail = () => {
   useEffect(() => {});
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form style={{ flex: "1" }} onSubmit={handleSubmit(onSubmit)}>
       <DetailBoxOuter>
         <TitlArea $justify="space-between" className="detail">
           <ST.SecTitle>JOB DETAIL</ST.SecTitle>
@@ -90,8 +91,12 @@ const Detail = () => {
                 type={"text"}
                 $size={"middle"}
                 placeholder={"이름 입력"}
-                {...register("jobName")}
+                {...register("jobName", {
+                  required: true,
+                })}
+                $invalid={errors.jobName ? "true" : "false"}
               ></ST.InputField>
+              {errors.jobName && <ST.ErrorMsg>이름은 필수입력 사항입니다.</ST.ErrorMsg>}
             </ST.FormItem>
 
             <ST.FormItem>
@@ -105,8 +110,12 @@ const Detail = () => {
                 type={"text"}
                 $size={"middle"}
                 placeholder={"그룹명 입력"}
-                {...register("jobGroup")}
+                {...register("jobGroup", {
+                  required: true,
+                })}
+                $invalid={errors.jobGroup ? "true" : "false"}
               ></ST.InputField>
+              {errors.jobGroup && <ST.ErrorMsg>그룹명은 필수입력 사항입니다.</ST.ErrorMsg>}
             </ST.FormItem>
 
             <ST.FormItem>
@@ -120,8 +129,12 @@ const Detail = () => {
                 type={"text"}
                 $size={"middle"}
                 placeholder={"클래스명 입력"}
-                {...register("jobClass")}
+                {...register("jobClass", {
+                  required: true,
+                })}
+                $invalid={errors.jobClass ? "true" : "false"}
               ></ST.InputField>
+              {errors.jobClass && <ST.ErrorMsg>클래스명은 필수입력 사항입니다.</ST.ErrorMsg>}
             </ST.FormItem>
 
             <ST.FormItem>
@@ -131,30 +144,36 @@ const Detail = () => {
               <Controller
                 name="jobPattern"
                 control={control}
+                rules={{
+                  required: true,
+                }}
                 render={({ field }) => {
                   const handleSelect = (selectKey: string) => {
                     const selectIndex = pattern.findIndex((name) => name.value === selectKey);
+                    setSelPattern(pattern[selectIndex].value);
                     field.onChange(pattern[selectIndex].value);
                   };
                   return (
                     <SelectBox
-                      id="jobauseYn"
-                      name="jobauseYn"
+                      id="jobPattern"
+                      name="jobPattern"
                       optionItem={pattern}
                       selectedValue={field.value}
                       size="middle"
+                      invalid={errors.jobClass ? "true" : "false"}
                       handleSelect={handleSelect}
                     />
                   );
                 }}
               />
+              {errors.jobPattern && <ST.ErrorMsg>반복패턴을 선택하세요</ST.ErrorMsg>}
             </ST.FormItem>
 
             {/* 패턴에 따른 UI변경부분 */}
-            <Once controller={Controller} control={control} />
-            <Daily />
-            <Weekly />
-            <Monthly />
+            {selPattern === "once" && <Once controller={Controller} control={control} />}
+            {selPattern === "daily" && <Daily controller={Controller} control={control} />}
+            {selPattern === "weekly" && <Weekly controller={Controller} control={control} />}
+            {selPattern === "monthly" && <Monthly controller={Controller} control={control} />}
 
             <ST.FormItem>
               <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobauseYn" $ess={true}>
@@ -163,6 +182,9 @@ const Detail = () => {
               <Controller
                 name="jobauseYn"
                 control={control}
+                rules={{
+                  required: true,
+                }}
                 render={({ field }) => {
                   const handleSelect = (selectKey: string) => {
                     const selectIndex = useYn.findIndex((name) => name.value === selectKey);
@@ -175,11 +197,13 @@ const Detail = () => {
                       optionItem={useYn}
                       selectedValue={field.value}
                       size="middle"
+                      invalid={errors.jobauseYn ? "true" : "false"}
                       handleSelect={handleSelect}
                     />
                   );
                 }}
               />
+              {errors.jobauseYn && <ST.ErrorMsg>사용유무을 선택하세요</ST.ErrorMsg>}
             </ST.FormItem>
 
             <ST.FlexBox $mt={40} className="dfsdfsdf">

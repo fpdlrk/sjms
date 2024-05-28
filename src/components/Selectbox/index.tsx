@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import usePositionInfo from "../../hooks/usePostionInfo";
 import { OptionsIprops } from "../../types/constant";
 
-const SelectBox = ({ optionItem, id, size, handleSelect, selectedValue }: OptionsIprops) => {
+const SelectBox = ({ optionItem, id, size, handleSelect, selectedValue, invalid }: OptionsIprops) => {
   const [isExpand, setIsExpand] = useState(false);
   const { posLocation, objRemove, pos, randomId } = usePositionInfo();
 
@@ -29,7 +29,7 @@ const SelectBox = ({ optionItem, id, size, handleSelect, selectedValue }: Option
   return (
     <SelectBoxOuter>
       <ST.BasicTagItem onMouseDown={handleMouseDown}>
-        <ClickArea $size={size} value={selectedValue} readOnly>
+        <ClickArea $size={size} value={selectedValue} $invalid={invalid} readOnly>
           {optionItem.map((item, index) => {
             return (
               <React.Fragment key={index}>
@@ -67,7 +67,7 @@ const Icon = styled(ST.Icon)`
   top: 50%;
   transform: translateY(-50%);
 `;
-const ClickArea = styled.select<ButtonIprops & { readOnly: boolean }>`
+const ClickArea = styled.select<ButtonIprops & { readOnly: boolean; $invalid?: string }>`
   width: 100%;
   height: ${(props) =>
     props.$size === "lager"
@@ -82,6 +82,7 @@ const ClickArea = styled.select<ButtonIprops & { readOnly: boolean }>`
   border: 1px solid ${theme.color.midLightGray};
   background-color: ${theme.color.white};
   border-radius: 6px;
+  border: ${(props) => props.$invalid === "true" && `1px solid ${theme.color.failed} !important`};
   cursor: pointer;
 `;
 
@@ -106,7 +107,7 @@ const OptionArea = styled(ST.FlexBox)`
     padding: 8px 15px;
     transition: background 0.3s;
     &:hover {
-      background-color: ${theme.color.superLightGray};
+      background-color: ${theme.color.options};
     }
     &:focus {
       background-color: ${theme.color.info};

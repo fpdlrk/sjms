@@ -54,7 +54,7 @@ export const InputCommStyle = css<InputFieldIprops>`
   border-radius: 4px;
 `;
 
-export const InputField = styled.input.attrs<InputFieldIprops>((props) => ({
+export const InputField = styled.input.attrs<InputFieldIprops & { $invalid?: string }>((props) => ({
   type: props.type,
   checked: props.checked,
   value: props.value,
@@ -79,6 +79,7 @@ export const InputField = styled.input.attrs<InputFieldIprops>((props) => ({
   &:disabled {
   }
   border: 1px solid #eee;
+  border: ${(props) => props.$invalid === "true" && `1px solid ${theme.color.failed} !important`};
   border-radius: 4px;
 `;
 
@@ -160,7 +161,9 @@ export const FormGroup = styled.div<FormGroupIprops>`
   ${CommCss};
 `;
 
-export const Button = styled.button<ButtonIprops>`
+export const Button = styled.button.attrs<ButtonIprops>((props) => ({
+  type: props.type ? props.type : "button",
+}))`
   width: 100%;
   height: ${(props) =>
     props.$size === "lager"
@@ -372,4 +375,14 @@ export const TimePickerWrap = styled(DatePickerWrap)<InputFieldIprops>`
   .react-datepicker-wrapper {
     background-image: url(${watch});
   }
+`;
+
+export const ErrorMsg = styled.span`
+  font-size: 12px;
+  color: ${theme.color.failed};
+`;
+
+export const Loading = styled.div`
+  font-size: 12px;
+  color: ${theme.color.failed};
 `;

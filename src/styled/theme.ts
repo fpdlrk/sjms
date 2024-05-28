@@ -29,5 +29,6 @@ export const theme = {
     success: "#008B00",
     info: "#046EEF",
     failed: "#FF2512",
+    options: "#e5f1ff",
   },
 };

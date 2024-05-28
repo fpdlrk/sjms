@@ -5,6 +5,7 @@ export type OptionsIprops = {
   size?: "small" | "middle" | "lager" | undefined;
   selectedValue?: string;
   optionItem: PattrnIprops[];
+  invalid?: string;
   handleSelect: (selectKey: string) => void;
 };
 
