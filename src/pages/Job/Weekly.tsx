@@ -4,6 +4,24 @@ import { theme } from "../../styled/theme";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from "react-hook-form";
+import { CheckByTypeBox } from "../../components/Checkbox";
+import { CheckByTypeBoxGroup } from "../../components/Checkbox/ChekBoxGroup";
+
+const dummyDataGenerate = () => {
+  const daysEng = ["mo", "Feb", "we", "th", "fr", "sa", "su"];
+  const daysKor = ["월", "화", "수", "목", "금", "토", "일"];
+  const arr = Array(12)
+    .fill("월")
+    .map((item, index) => {
+      return {
+        label: daysKor[index],
+        value: daysEng[index],
+      };
+    });
+  return arr;
+};
+const days = [...dummyDataGenerate()];
+const defaultDay = ["we", "Feb", "su", "fr"];
 
 const Weekly = ({ control, register, errors }: any) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -37,7 +55,7 @@ const Weekly = ({ control, register, errors }: any) => {
               </ST.DatePickerWrap>
             </ST.BasicTagItem>
 
-            <ST.BasicTagItem width={100} $ml={10}>
+            <ST.BasicTagItem width={100} $ml={5}>
               <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
                 시작 시간
               </ST.LabelText>
@@ -95,7 +113,7 @@ const Weekly = ({ control, register, errors }: any) => {
               </ST.DatePickerWrap>
             </ST.BasicTagItem>
 
-            <ST.BasicTagItem width={100} $ml={10}>
+            <ST.BasicTagItem width={100} $ml={5}>
               <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobETime" $ess={true}>
                 종료 시간
               </ST.LabelText>
@@ -131,6 +149,14 @@ const Weekly = ({ control, register, errors }: any) => {
       </ST.FormItem>
 
       {/* 요일선택 */}
+      <ST.FormItem>
+        <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
+          요일 선택
+        </ST.LabelText>
+        <ST.FlexBox>
+          <CheckByTypeBoxGroup items={days} checkValue={defaultDay} />
+        </ST.FlexBox>
+      </ST.FormItem>
 
       {/* 반복주기 */}
       <ST.FormItem>

@@ -1,16 +1,14 @@
 import { useState } from "react";
 
-const useRadio = (initValue: string) => {
+const useRadio = (initValue: string | number) => {
   const [checkVal, setCheckVal] = useState(initValue);
 
   const checkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckVal(e.target.value);
-    console.log("65656", e.target.value);
   };
 
-  const setInitValue = (value: string) => {
+  const setInitValue = (value: string | number) => {
     setCheckVal(value);
-    console.log("65656", checkVal, value, checkVal === value);
   };
 
   return { checkVal, checkHandler, setInitValue };

@@ -4,6 +4,22 @@ import { theme } from "../../styled/theme";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from "react-hook-form";
+import { CheckByTypeBoxGroup } from "../../components/Checkbox/ChekBoxGroup";
+
+const dummyDataGenerate = () => {
+  const monthFlag = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const arr = Array(12)
+    .fill("월")
+    .map((item, index) => {
+      return {
+        label: index + 1 + item,
+        value: monthFlag[index],
+      };
+    });
+  return arr;
+};
+const month = [...dummyDataGenerate()];
+const defaultMonth = ["Feb", "Apr", "Jun", "Dec"];
 
 const Monthly = ({ control, register, errors }: any) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -37,7 +53,7 @@ const Monthly = ({ control, register, errors }: any) => {
               </ST.DatePickerWrap>
             </ST.BasicTagItem>
 
-            <ST.BasicTagItem width={100} $ml={10}>
+            <ST.BasicTagItem width={100} $ml={5}>
               <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
                 시작 시간
               </ST.LabelText>
@@ -95,7 +111,7 @@ const Monthly = ({ control, register, errors }: any) => {
               </ST.DatePickerWrap>
             </ST.BasicTagItem>
 
-            <ST.BasicTagItem width={100} $ml={10}>
+            <ST.BasicTagItem width={100} $ml={5}>
               <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobETime" $ess={true}>
                 종료 시간
               </ST.LabelText>
@@ -131,6 +147,14 @@ const Monthly = ({ control, register, errors }: any) => {
       </ST.FormItem>
 
       {/* 월선택 */}
+      <ST.FormItem>
+        <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
+          월 선택
+        </ST.LabelText>
+        <ST.FlexBox>
+          <CheckByTypeBoxGroup items={month} checkValue={defaultMonth} />
+        </ST.FlexBox>
+      </ST.FormItem>
 
       {/* 반복주기 */}
       <ST.FormItem>

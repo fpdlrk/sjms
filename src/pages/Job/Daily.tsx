@@ -37,7 +37,7 @@ const Daily = ({ control, register, errors }: any) => {
               </ST.DatePickerWrap>
             </ST.BasicTagItem>
 
-            <ST.BasicTagItem width={100} $ml={10}>
+            <ST.BasicTagItem width={100} $ml={5}>
               <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
                 시작 시간
               </ST.LabelText>
@@ -95,7 +95,7 @@ const Daily = ({ control, register, errors }: any) => {
               </ST.DatePickerWrap>
             </ST.BasicTagItem>
 
-            <ST.BasicTagItem width={100} $ml={10}>
+            <ST.BasicTagItem width={100} $ml={5}>
               <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobETime" $ess={true}>
                 종료 시간
               </ST.LabelText>

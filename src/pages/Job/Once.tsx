@@ -36,7 +36,7 @@ const Once = ({ control }: any) => {
             </ST.DatePickerWrap>
           </ST.BasicTagItem>
 
-          <ST.BasicTagItem width={100} $ml={10}>
+          <ST.BasicTagItem width={100} $ml={5}>
             <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobSTime" $ess={true}>
               시작 시간
             </ST.LabelText>
