@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as ST from "../../styled/style";
 import GnbMenu from "../../components/GnbMenu";
 import { theme } from "../../styled/theme";
@@ -8,17 +8,20 @@ import Table from "../../components/Table/Table";
 import { faker } from "@faker-js/faker";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { styled } from "styled-components";
+import { useLodingStore } from "../../store/globalStore";
+import { useShallow } from "zustand/react/shallow";
 
 const UserList = () => {
-  // const datas = Array(5)
-  //   .fill("")
-  //   .map(() => ({
-  //     email: faker.internet.email(),
-  //     name: faker.name.lastName() + faker.name.firstName(),
-  //     regDt: faker.date.past(),
-  //     edtDt: faker.date.past(),
-  //     position: faker.phone.number(),
-  //   }));
+  const { setIsLoading, isLoading = true } = useLodingStore(
+    useShallow((state) => ({ setIsLoading: state.setIsLoading, isLoading: state.isLoading }))
+  );
+
+  useEffect(() => {
+    setIsLoading(true); // 로딩
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   const datas = [
     {
@@ -111,9 +114,9 @@ const UserList = () => {
 
   return (
     <>
-      <ST.FlexBox $direction="column">
+      <ST.BasicTagItem $direction="column">
         <GnbMenu />
-        <ST.FlexBox width={"100%"} $pa={30} $direction="column">
+        <ST.BasicTagItem $pa={30}>
           {/* 페이지 타이틀 */}
           {/* 상단 버튼 */}
           <ST.FlexBox width={"100%"}>
@@ -134,12 +137,12 @@ const UserList = () => {
 
           {/* 테이블 리스트 */}
           <Table columns={columns} data={datas} />
-        </ST.FlexBox>
-      </ST.FlexBox>
+        </ST.BasicTagItem>
+      </ST.BasicTagItem>
     </>
   );
 };
 
 const TableSelectbox = styled.select``;
 
-export default UserList;
+export default React.memo(UserList);

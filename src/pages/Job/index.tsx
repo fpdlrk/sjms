@@ -4,10 +4,6 @@ import GnbMenu from "../../components/GnbMenu";
 import Filter from "../../components/Filter";
 import LeftMenu from "../../components/LeftMenu";
 import { styled } from "styled-components";
-import { theme } from "../../styled/theme";
-import { ReactComponent as CheckSquare } from "../../assets/img/check-square-broken.svg";
-import { ReactComponent as Xcircle } from "../../assets/img/x-circle-contained.svg";
-import { ReactComponent as Activity } from "../../assets/img/activity.svg";
 import Detail from "./Detail";
 import Logs from "./Logs";
 

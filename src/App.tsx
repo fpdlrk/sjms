@@ -7,17 +7,19 @@ import { useMessageAlertStore, useLodingStore } from "./store/globalStore";
 import CusTomTooltip from "./components/Tooltip";
 import GlobalStyled from "./styled/GlobalStyled";
 import Loading from "./components/Loading/Loading";
+import { useShallow } from "zustand/react/shallow";
 
 function App() {
   const { isShow } = useMessageAlertStore();
-  const { isLoading } = useLodingStore();
+  const { isLoading } = useLodingStore(useShallow((state) => ({ isLoading: state.isLoading })));
+  console.log("로그인");
   return (
     <>
       <GlobalStyled />
-      {isShow && <MessageAlert />}
       <Router />
-      <CusTomTooltip />
+      {isShow && <MessageAlert />}
       {isLoading && <Loading />}
+      <CusTomTooltip />
     </>
   );
 }

@@ -16,7 +16,6 @@ const IndexPage = () => {
     movePage();
   }, []);
 
-  // if(){}
   return <div></div>;
 };
 

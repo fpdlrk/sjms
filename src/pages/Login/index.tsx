@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { theme } from "../../styled/theme";
 import { useMessageAlertStore, useLodingStore } from "../../store/globalStore";
 import { useForm, SubmitHandler, FormSubmitHandler } from "react-hook-form";
+import { useShallow } from "zustand/react/shallow";
 
 type Inputs = {
   userId: string;
@@ -13,7 +14,7 @@ type Inputs = {
 const Login = () => {
   const navigate = useNavigate();
   const { setData } = useMessageAlertStore();
-  const { setIsLoading } = useLodingStore();
+  const { setIsLoading } = useLodingStore(useShallow((state) => ({ setIsLoading: state.setIsLoading })));
 
   const {
     register,
@@ -25,28 +26,6 @@ const Login = () => {
     console.log(data);
     setIsLoading(true); // 로딩
     navigate("/overview");
-  };
-
-  const loginHandler = () => {
-    // if (isEmpty(inputId)) {
-    //   setData({
-    //     type: "alert",
-    //     isShow: true,
-    //     msg: "아이디를 입력하세요",
-    //     okBtn: false,
-    //   });
-    //   return;
-    // }
-    // if (isEmpty(inputPw)) {
-    //   setData({
-    //     type: "alert",
-    //     isShow: true,
-    //     msg: "비밀번호를 입력하세요",
-    //     okBtn: false,
-    //   });
-    //   return;
-    // }
-    // 메인으로 이동
   };
 
   const passWordFindHandler = () => {

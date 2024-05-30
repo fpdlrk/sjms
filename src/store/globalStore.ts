@@ -15,5 +15,9 @@ export const useMessageAlertStore = create((set: any) => ({
 
 export const useLodingStore = create((set: any) => ({
   isLoading: false,
-  setIsLoading: (status: boolean) => set({ isLoading: status }),
+  setIsLoading: (status: boolean) =>
+    set((state: any) => {
+      return { ...state, isLoading: status };
+    }),
+  // setIsLoading: (status: boolean) => set(() => ({ isLoading: status })),
 }));

@@ -381,8 +381,3 @@ export const ErrorMsg = styled.span`
   font-size: 12px;
   color: ${theme.color.failed};
 `;
-
-export const Loading = styled.div`
-  font-size: 12px;
-  color: ${theme.color.failed};
-`;

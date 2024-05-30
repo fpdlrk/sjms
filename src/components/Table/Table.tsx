@@ -33,43 +33,49 @@ const Table = ({ columns, data }: TableIprops) => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  console.log("ssss", table, Object.keys(rowSelection));
+  // console.log("ssss", table, Object.keys(rowSelection));
 
   const toggleAllPageRowsSelectedHandler = (t: any, e: any) => {
-    console.log("#########", t.getToggleAllPageRowsSelectedHandler(e));
+    // console.log("#########", t.getToggleAllPageRowsSelectedHandler(e));
     // return t.getToggleAllPageRowsSelectedHandler();
   };
   const isSelected = () => {};
   const toggleSelectedHandler = () => {};
 
   return (
-    <TableContainer>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th key={header.id} style={{ width: header.getSize() }}>
-                {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => {
-          return (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+    <TableContainerWrap>
+      <TableContainer>
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id} style={{ width: header.getSize() }}>
+                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                </th>
               ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </TableContainer>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => {
+            return (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </TableContainer>
+    </TableContainerWrap>
   );
 };
 
+const TableContainerWrap = styled.div`
+  border-radius: 10px;
+  border: 1px solid ${theme.color.midLightGray};
+`;
 const TableContainer = styled.table`
   width: 100%;
   thead {
@@ -77,6 +83,7 @@ const TableContainer = styled.table`
       height: 50px;
       vertical-align: middle;
       border-bottom: 1px solid ${theme.color.superLightGray};
+      background-color: #f9f9f9;
       font-weight: 700;
       font-size: 12px;
       color: ${theme.color.primary};
