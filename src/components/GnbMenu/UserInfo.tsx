@@ -15,7 +15,6 @@ const UserInfo = () => {
   const { setData, callback, setIsShow } = useMessageAlertStore(
     useShallow((state) => ({ setData: state.setData, callback: state.callback, setIsShow: state.setIsShow }))
   );
-  const { isEmpty } = useValidate();
 
   const okCallback = useCallback(() => {
     setIsShow(false);
@@ -24,7 +23,6 @@ const UserInfo = () => {
 
   // 로그아웃 처리
   const procLogout = useCallback(() => {
-    console.log("로그아웃 처리");
     setData({
       isShow: true,
       msg: "로그아웃 하시겠습니까?",

@@ -245,6 +245,8 @@ export const PopupAndAlertOuter = styled.div<CommonType>`
   width: 100%;
   height: 100vh;
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 500;
   background: rgba(0, 0, 0, 0.3);
 `;
@@ -377,9 +379,27 @@ export const TimePickerWrap = styled(DatePickerWrap)<InputFieldIprops>`
   }
 `;
 
-export const ErrorMsg = styled.span`
+export const ErrorMsg = styled.p`
+  padding: 4px 0 0 0;
   font-size: 12px;
   color: ${theme.color.failed};
 `;
 
-export const TableSelectbox = styled.select``;
+export const TableSelectbox = styled.select.attrs<{ $size?: string }>((props) => {
+  return { $size: props.$size };
+})`
+  width: 100%;
+  padding: 5px 10px;
+  border: 1px solid ${theme.color.midLightGray};
+  font-size: 12px;
+  border-radius: 4px;
+  appearance: auto;
+  height: ${(props) =>
+    props.$size === "lager"
+      ? props.theme.inputSize.lager
+      : props.$size === "middle"
+      ? props.theme.inputSize.middle
+      : props.$size === "small"
+      ? props.theme.inputSize.small
+      : "32px"};
+`;

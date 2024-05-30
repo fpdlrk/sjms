@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as ST from "../../styled/style";
 import GnbMenu from "../../components/GnbMenu";
 import { theme } from "../../styled/theme";
@@ -8,13 +8,88 @@ import Table from "../../components/Table/Table";
 import { faker } from "@faker-js/faker";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { styled } from "styled-components";
-import { useLodingStore } from "../../store/globalStore";
+import { useLodingStore, useMessageAlertStore, usePopuptStore } from "../../store/globalStore";
 import { useShallow } from "zustand/react/shallow";
+import Popup from "../../components/Popup";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import Selectbox from "../../components/Selectbox";
+
+type Inputs = {
+  userEmail: string;
+  userName: string;
+  userPos: string;
+};
 
 const UserList = () => {
-  const { setIsLoading, isLoading = true } = useLodingStore(
-    useShallow((state) => ({ setIsLoading: state.setIsLoading, isLoading: state.isLoading }))
+  const submitDataRef = useRef<any>(null);
+  const { setIsLoading, isLoading } = useLodingStore(useShallow((state) => ({ setIsLoading: state.setIsLoading, isLoading: state.isLoading })));
+  const { setData, callback, setIsShow } = useMessageAlertStore(
+    useShallow((state) => ({ setData: state.setData, callback: state.callback, setIsShow: state.setIsShow }))
   );
+
+  const { setPopupData, isPopShow } = usePopuptStore(
+    useShallow((state) => ({
+      setPopupData: state.setPopupData,
+      isPopShow: state.isPopShow,
+    }))
+  );
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    resetField,
+    formState: { errors, isSubmitSuccessful, isSubmitting, isSubmitted },
+  } = useForm<Inputs>();
+
+  // 저장하기
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+    submitDataRef.current = data;
+    setData({
+      isShow: true,
+      msg: "저장하시겠습니까?",
+      okBtn: true, // 확인 버튼 노출/미노출
+      callback: saveCallback,
+    });
+  };
+
+  const saveCallback = useCallback(() => {
+    // 데이터 저장로직
+    console.log("submitData ::::::::", submitDataRef.current);
+    setPopupData({ isPopShow: false });
+    setData({ isShow: false });
+    resetField("userName");
+    resetField("userEmail");
+    resetField("userPos");
+  }, []);
+
+  // 회원추가
+  const userCancelCallback = useCallback(() => {
+    console.log("확인버튼 클릭");
+    resetField("userName");
+    resetField("userEmail");
+    resetField("userPos");
+    setPopupData({ isPopShow: false });
+  }, []);
+
+  const userAdd = useCallback(() => {
+    setPopupData({ title: "회원추가", isPopShow: true, ok: onSubmit, isSubmit: true, cencel: userCancelCallback });
+  }, []);
+
+  // 회원삭제
+  const userDelOkCallback = useCallback(() => {
+    setIsShow(false);
+  }, []);
+
+  const userDel = useCallback(() => {
+    setData({
+      isShow: true,
+      msg: "삭제하시겠습니까?",
+      okBtn: true, // 확인 버튼 노출/미노출
+      callback: userDelOkCallback,
+    });
+  }, []);
 
   useEffect(() => {
     setIsLoading(true); // 로딩
@@ -114,6 +189,70 @@ const UserList = () => {
 
   return (
     <>
+      {isPopShow && (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Popup>
+            <ST.FormGroup $gapT={20}>
+              <ST.FormItem>
+                <ST.LabelText $display="block" htmlFor="userName">
+                  이름
+                </ST.LabelText>
+                <ST.InputField
+                  width={"100%"}
+                  id={"userName"}
+                  $pa={10}
+                  type={"text"}
+                  $size={"lager"}
+                  placeholder={"이름을 입력하세요"}
+                  {...register("userName", {
+                    required: true,
+                  })}
+                  $invalid={errors.userName ? "true" : "false"}
+                ></ST.InputField>
+                {errors.userName && <ST.ErrorMsg>필수입력 사항입니다.</ST.ErrorMsg>}
+              </ST.FormItem>
+
+              <ST.FormItem>
+                <ST.LabelText $display="block" htmlFor="userEmail">
+                  이메일
+                </ST.LabelText>
+                <ST.InputField
+                  width={"100%"}
+                  id={"userEmail"}
+                  $pa={10}
+                  type={"text"}
+                  $size={"lager"}
+                  placeholder={"이메일을 입력하세요"}
+                  {...register("userEmail", {
+                    required: true,
+                  })}
+                  $invalid={errors.userEmail ? "true" : "false"}
+                ></ST.InputField>
+                {errors.userEmail && <ST.ErrorMsg>필수입력 사항입니다.</ST.ErrorMsg>}
+              </ST.FormItem>
+
+              <ST.FormItem>
+                <ST.LabelText $fs={12} $fc={theme.color.fcThird} $display="block" htmlFor="jobauseYn" $ess={true}>
+                  사용유무
+                </ST.LabelText>
+                <ST.TableSelectbox
+                  $size="lager"
+                  {...register("userPos", {
+                    required: true,
+                  })}
+                >
+                  <option value="all">전체</option>
+                  <option value="user">USER</option>
+                  <option value="block">BLOCK</option>
+                  <option value="admin">ADMIN </option>
+                </ST.TableSelectbox>
+                {errors.userPos && <ST.ErrorMsg>필수입력 사항입니다.</ST.ErrorMsg>}
+              </ST.FormItem>
+            </ST.FormGroup>
+          </Popup>
+        </form>
+      )}
+
       <ST.BasicTagItem $direction="column">
         <GnbMenu />
         <ST.BasicTagItem $pa={30}>
@@ -125,11 +264,11 @@ const UserList = () => {
             </ST.TextItem>
           </ST.FlexBox>
           <ST.FlexBox width={"100%"} $pb={10} $justify="right">
-            <ST.Button width={120} $size={"middle"} $primary={true}>
+            <ST.Button width={120} $size={"middle"} $primary={true} onClick={userDel}>
               <XIcon />
               선택삭제
             </ST.Button>
-            <ST.Button width={120} $ml={10} $size={"middle"} $fc={theme.color.white} $background={theme.color.failed}>
+            <ST.Button width={120} $ml={10} $size={"middle"} $fc={theme.color.white} $background={theme.color.failed} onClick={userAdd}>
               <Edit />
               신규등록
             </ST.Button>

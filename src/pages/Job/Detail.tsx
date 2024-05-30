@@ -3,8 +3,6 @@ import { styled } from "styled-components";
 import { theme } from "../../styled/theme";
 import { ReactComponent as Edit } from "../../assets/img/edit-03.svg";
 import { ReactComponent as Xcircle } from "../../assets/img/x-02.svg";
-import { ReactComponent as Activity } from "../../assets/img/activity.svg";
-import { DetailIprops } from "../../types/type";
 import SelectBox from "../../components/Selectbox";
 import { pattern, useYn } from "../../types/constant";
 import Once from "./Once";
@@ -67,7 +65,6 @@ const Detail = () => {
     });
 
     saveData.current = data;
-    console.log(saveData.current);
     return;
   };
 

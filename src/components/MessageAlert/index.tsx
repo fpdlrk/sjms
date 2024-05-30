@@ -10,7 +10,7 @@ const MessageAlert = () => {
     setReset();
   };
   return (
-    <ST.PopupAndAlertOuter className="PopupAndAlertOuterPopupAndAlertOuterPopupAndAlertOuterPopupAndAlertOuter">
+    <ST.PopupAndAlertOuter>
       <ST.PopupAndAlertWrap>
         <ST.PopupAndAlertTitle>안내</ST.PopupAndAlertTitle>
         <ST.PopupAndAlertBody>

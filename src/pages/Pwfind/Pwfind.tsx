@@ -27,28 +27,6 @@ const Pwfind = () => {
     navigate("/pwFindComplate");
   };
 
-  // const pwFindHandler = () => {
-  //   if (isEmpty(inputEmail)) {
-  //     setData({
-  //       isShow: true,
-  //       msg: "이메일을 입력하세요",
-  //       okBtn: false, // 확인 버튼 노출/미노출
-  //     });
-  //     return;
-  //   }
-
-  //   if (isEmpty(inputName)) {
-  //     setData({
-  //       isShow: true,
-  //       msg: "이름을 입력하세요",
-  //       okBtn: false, // 확인 버튼 노출/미노출
-  //     });
-  //     return;
-  //   }
-
-  //   navigate("../pwFindComplate");
-  // };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ST.FlexBox width={"100%"} height="100vh" $justify="center" $align="center">

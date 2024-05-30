@@ -112,12 +112,6 @@ const TableContainer = styled.table`
     }
   }
   select {
-    width: 100%;
-    padding: 5px 10px;
-    border: 1px solid ${theme.color.midLightGray};
-    font-size: 12px;
-    border-radius: 4px;
-    appearance: auto;
   }
 `;
 
