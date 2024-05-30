@@ -162,13 +162,13 @@ const Overview = () => {
             </ST.FlexBox>
           </ST.FlexBox>
 
-          <ST.FlexBox $pl={40} $flex={1} $direction="column" style={{ textTransform: "uppercase" }}>
-            <ST.TextItem $fs={28} $fw="bold" style={{ textTransform: "uppercase" }}>
+          <ST.BasicTagItem $pl={40} $flex={1} $direction="column" style={{ textTransform: "uppercase" }}>
+            <ST.TextItem $mb={20} $fs={28} $fw="bold" style={{ textTransform: "uppercase" }}>
               JOBS EXECUTED
             </ST.TextItem>
             {/* 테이블 리스트 */}
             <Table columns={columns} data={datas} />
-          </ST.FlexBox>
+          </ST.BasicTagItem>
         </ST.FlexBox>
       </ST.FlexBox>
     </>

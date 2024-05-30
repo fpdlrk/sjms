@@ -10,7 +10,7 @@ import Loading from "./components/Loading/Loading";
 import { useShallow } from "zustand/react/shallow";
 
 function App() {
-  const { isShow } = useMessageAlertStore();
+  const { isShow } = useMessageAlertStore(useShallow((state) => ({ isShow: state.isShow })));
   const { isLoading } = useLodingStore(useShallow((state) => ({ isLoading: state.isLoading })));
   console.log("로그인");
   return (
@@ -19,6 +19,7 @@ function App() {
       <Router />
       {isShow && <MessageAlert />}
       {isLoading && <Loading />}
+      <MessageAlert />
       <CusTomTooltip />
     </>
   );

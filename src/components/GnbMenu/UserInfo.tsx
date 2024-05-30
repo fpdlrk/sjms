@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import * as ST from "../../styled/style";
 import { theme } from "../../styled/theme";
@@ -7,27 +7,31 @@ import { ReactComponent as Arrow } from "../../assets/img/arrow_down.svg";
 import usePostionInfo from "../../hooks/usePostionInfo";
 import useValidate from "../../hooks/useValidate";
 import { useMessageAlertStore } from "../../store/globalStore";
+import { useShallow } from "zustand/react/shallow";
 
 const UserInfo = () => {
   const navigate = useNavigate();
   const { posLocation, objRemove, pos, randomId } = usePostionInfo();
-  const { setData, callback, setIsShow } = useMessageAlertStore();
+  const { setData, callback, setIsShow } = useMessageAlertStore(
+    useShallow((state) => ({ setData: state.setData, callback: state.callback, setIsShow: state.setIsShow }))
+  );
   const { isEmpty } = useValidate();
 
-  const okCallback = () => {
+  const okCallback = useCallback(() => {
     setIsShow(false);
     navigate("../login");
-  };
+  }, [randomId]);
 
   // 로그아웃 처리
-  const procLogout = () => {
+  const procLogout = useCallback(() => {
+    console.log("로그아웃 처리");
     setData({
       isShow: true,
       msg: "로그아웃 하시겠습니까?",
       okBtn: true, // 확인 버튼 노출/미노출
       callback: okCallback,
     });
-  };
+  }, [randomId]);
 
   // 정보수정 이동
   const userInfoModify = () => {
