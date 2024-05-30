@@ -7,5 +7,3 @@
 
 1. `react-hook-form`
 2. `react-table`
-
-### `yarn start`

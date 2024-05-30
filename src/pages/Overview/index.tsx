@@ -4,11 +4,13 @@ import GnbMenu from "../../components/GnbMenu";
 import { ReactComponent as CheckSquare } from "../../assets/img/check-square-broken.svg";
 import { ReactComponent as Xcircle } from "../../assets/img/x-circle-contained.svg";
 import { ReactComponent as Activity } from "../../assets/img/activity.svg";
+import { ReactComponent as LinkIcon } from "../../assets/img/zoom-in.svg";
 import { theme } from "../../styled/theme";
 import { useLodingStore } from "../../store/globalStore";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useShallow } from "zustand/react/shallow";
 import Table from "../../components/Table/Table";
+import { Link } from "react-router-dom";
 
 const Overview = () => {
   const { setIsLoading, isLoading = true } = useLodingStore(
@@ -29,7 +31,16 @@ const Overview = () => {
       classN: "GleichnerJohn",
       pettren: "1-575-578-7237 x546",
       regDt: "2024-03-02T12:24:25.371Z",
-      status: "1-575-578-7237 x546",
+      status: "S",
+      view: "1-575-578-7237 x546",
+    },
+    {
+      useName: "Astrid87",
+      group: "Astrid87@hotmail.com",
+      classN: "GleichnerJohn",
+      pettren: "1-575-578-7237 x546",
+      regDt: "2024-03-02T12:24:25.371Z",
+      status: "F",
       view: "1-575-578-7237 x546",
     },
   ];
@@ -43,19 +54,47 @@ const Overview = () => {
       header: "패턴",
       size: 300,
     }),
-    columnHelper.accessor("regDt", { header: "시작일", size: 200 }),
+    columnHelper.accessor("regDt", {
+      header: "시작일",
+      size: 200,
+      cell: (props) => {
+        return <div style={{ textAlign: "center" }}>{props.getValue()}</div>;
+      },
+    }),
     columnHelper.accessor("status", {
       header: "상태",
       size: 80,
       cell: (props) => {
-        return <div>s</div>;
+        return props.getValue() === "S" ? (
+          <ST.FlexBox $justify="center" $align="center" $fc={theme.color.success}>
+            <ST.Icon $mr={2} $fs={15}>
+              <CheckSquare />
+            </ST.Icon>
+            성공
+          </ST.FlexBox>
+        ) : (
+          <ST.FlexBox $justify="center" $align="center" $fc={theme.color.failed}>
+            <ST.Icon $mr={2} $fs={15}>
+              <CheckSquare />
+            </ST.Icon>
+            실패
+          </ST.FlexBox>
+        );
       },
     }),
     columnHelper.accessor("view", {
       header: "보기",
       size: 60,
       cell: (props) => {
-        return <div>s</div>;
+        return (
+          <ST.FlexBox $justify="center" $align="center">
+            <Link to="">
+              <ST.Icon $mr={2} $fs={15}>
+                <LinkIcon />
+              </ST.Icon>
+            </Link>
+          </ST.FlexBox>
+        );
       },
     }),
   ];
