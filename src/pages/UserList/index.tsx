@@ -164,7 +164,7 @@ const UserList = () => {
       },
       size: 30,
     }),
-    columnHelper.accessor("email", { header: "이메일", size: 80, id: "6565656565" }),
+    columnHelper.accessor("email", { header: "이메일", size: 80, id: "email" }),
     columnHelper.accessor("name", { header: "이름", size: 60 }),
     columnHelper.accessor("regDt", {
       header: "생성일",

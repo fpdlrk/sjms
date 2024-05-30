@@ -24,89 +24,38 @@ const Overview = () => {
 
   const datas = [
     {
-      email: "Astrid87@hotmail.com",
-      name: "GleichnerJohn",
-      regDt: "2023-07-20T16:23:31.683Z",
-      edtDt: "2023-12-01T16:15:32.185Z",
-      position: "1-575-578-7237 x546",
-    },
-    {
-      email: "Camren80@gmail.com",
-      name: "DurganEleonore",
+      useName: "Astrid87",
+      group: "Astrid87@hotmail.com",
+      classN: "GleichnerJohn",
+      pettren: "1-575-578-7237 x546",
       regDt: "2024-03-02T12:24:25.371Z",
-      edtDt: "2023-10-09T06:09:09.272Z",
-      position: "805.316.5243 x83812",
-    },
-    {
-      email: "Keshawn.West@hotmail.com",
-      name: "HirtheFrankie",
-      regDt: "2024-04-29T11:56:46.606Z",
-      edtDt: "2023-12-16T03:41:29.234Z",
-      position: "997-351-2285",
-    },
-    {
-      email: "Lilyan.Gutkowski@yahoo.com",
-      name: "BechtelarZelma",
-      regDt: "2024-02-18T00:28:21.052Z",
-      edtDt: "2024-04-04T16:28:31.793Z",
-      position: "1-644-308-4105 x88961",
-    },
-    {
-      email: "Rosie.Hackett@yahoo.com",
-      name: "BraunWiley",
-      regDt: "2023-11-28T18:18:23.322Z",
-      edtDt: "2023-07-25T21:49:28.816Z",
-      position: "424.362.7947 x11850",
+      status: "1-575-578-7237 x546",
+      view: "1-575-578-7237 x546",
     },
   ];
 
   const columnHelper = createColumnHelper<any>();
   const columns = [
-    columnHelper.accessor("chk", {
-      header: ({ table }) => (
-        <p style={{ textAlign: "center" }}>
-          <input
-            id="header-checkbox"
-            type="checkbox"
-            checked={table.getIsAllPageRowsSelected()} // 전체 row가 선택되었는지 확인
-            onChange={table.getToggleAllPageRowsSelectedHandler()} // 전체 row를 선택/해제하는 handler
-          />
-        </p>
-      ),
-      cell: (props) => {
-        return (
-          <p style={{ textAlign: "center" }}>
-            <input
-              id={`cell-checkbox-${props.row.id}`}
-              type="checkbox"
-              checked={props.row.getIsSelected()} // row가 선택되었는지 확인
-              disabled={!props.row.getCanSelect()} // row가 선택 가능한지 확인
-              onChange={props.row.getToggleSelectedHandler()} // row를 선택/해제하는 handler
-            />
-          </p>
-        );
-      },
-      size: 30,
-    }),
-    columnHelper.accessor("email", { header: "이메일", size: 80, id: "6565656565" }),
-    columnHelper.accessor("name", { header: "이름", size: 60 }),
-    columnHelper.accessor("regDt", {
-      header: "생성일",
+    columnHelper.accessor("useName", { header: "이름", size: 80, id: "useName" }),
+    columnHelper.accessor("group", { header: "그룹", size: 80, id: "group" }),
+    columnHelper.accessor("classN", { header: "클래스", size: 60 }),
+    columnHelper.accessor("pettren", {
+      header: "패턴",
       size: 300,
     }),
-    columnHelper.accessor("edtDt", { header: "수정일", size: 120 }),
-    columnHelper.accessor("position", {
-      header: "역할",
-      size: 120,
+    columnHelper.accessor("regDt", { header: "시작일", size: 200 }),
+    columnHelper.accessor("status", {
+      header: "상태",
+      size: 80,
       cell: (props) => {
-        return (
-          <ST.TableSelectbox>
-            <option value="all">전체</option>
-            <option value="user">USER</option>
-            <option value="block">BLOCK</option>
-            <option value="admin">ADMIN </option>
-          </ST.TableSelectbox>
-        );
+        return <div>s</div>;
+      },
+    }),
+    columnHelper.accessor("view", {
+      header: "보기",
+      size: 60,
+      cell: (props) => {
+        return <div>s</div>;
       },
     }),
   ];
