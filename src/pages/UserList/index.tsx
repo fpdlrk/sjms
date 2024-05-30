@@ -101,12 +101,12 @@ const UserList = () => {
       size: 120,
       cell: (props) => {
         return (
-          <TableSelectbox>
+          <ST.TableSelectbox>
             <option value="all">전체</option>
             <option value="user">USER</option>
             <option value="block">BLOCK</option>
             <option value="admin">ADMIN </option>
-          </TableSelectbox>
+          </ST.TableSelectbox>
         );
       },
     }),
@@ -142,7 +142,5 @@ const UserList = () => {
     </>
   );
 };
-
-const TableSelectbox = styled.select``;
 
 export default React.memo(UserList);
